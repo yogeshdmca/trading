@@ -1,0 +1,1 @@
+/*! light-blue - v3.3.0 - 2016-03-08 */$(function(){function a(){$(".popover-test").popover(),$(".tooltip-test").tooltip()}a(),PjaxApp.onPageLoad(a)});
