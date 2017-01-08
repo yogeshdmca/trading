@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'widget_tweaks',
     'accounts',
+    'trade',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +62,7 @@ ROOT_URLCONF = 'trading.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates"],  #modify this line
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  #modify this line
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,12 +143,14 @@ AUTHENTICATION_BACKENDS = (
 )
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_SUBJECT_PREFIX='Iqptionexperts.com'
+
+ACCOUNT_EMAIL_SUBJECT_PREFIX='Iqptionexperts'
 
 ACCOUNT_LOGIN_REDIRECT_URL='/dashbord/'
 
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 30
 
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 

@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% load widget_tweaks %}
+
+{% block page_title %}Win and Lose signal  {% endblock page_title %}
+
+{% block content %}
+        <div class="row">
+            <div class="col-md-6">
+                <section class="widget">
+                    <header>
+                        <div class="widget-controls">
+                            <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a data-widgster="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </header>
+                    <div class="widget-body">
+                        <h3>Active <span class="fw-semi-bold">Signal Win</span></h3>
+                        <p>Signbal created by Iqoptionexperts that win.</p>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Currency Pair</th>
+                                <th>Directions</th>
+                                <th>Date / Time</th>
+                                <th>Expirations</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for signal in win_signals %}
+                            <tr>
+                                <td>{{signal.currency}}</td>
+                                <td>{{signal.direction}}</td>
+                                <td><span class="label label-danger">{{signal.updated_at}}</span> </td>
+                                <td>
+                                    <span class="label label-danger">{{signal.expire_in}}</span> </td>
+                                <td>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-6">
+                <section class="widget">
+                    <header>
+                        
+                        <div class="widget-controls">
+                            <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a data-widgster="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </header>
+                    <div class="widget-body">
+                        <h3>Active <span class="fw-semi-bold">Signal Lose</span></h3>
+                        <p>Signbal created by Iqoptionexperts that lose.</p>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Currency Pair</th>
+                                <th>Directions</th>
+                                <th>Date / Time</th>
+                                <th>Expirations</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for signal in lose_signals %}
+                            <tr>
+                                <td>{{signal.currency}}</td>
+                                <td>{{signal.direction}}</td>
+                                <td><span class="label label-danger">{{signal.updated_at}}</span> </td>
+                                <td>
+                                    <span class="label label-danger">{{signal.expire_in}}</span> </td>
+                                <td>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+{% endblock content %}

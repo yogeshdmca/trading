@@ -1,0 +1,56 @@
+<header class="page-header">
+    <div class="navbar">
+        <ul class="nav navbar-nav navbar-right pull-right">
+            <li class="visible-phone-landscape">
+                <a href="#" id="search-toggle">
+                    <i class="fa fa-search"></i>
+                </a>
+            </li>
+
+            <li class="divider"></li>
+
+            <li class="hidden-xs dropdown">
+                <a href="#" title="Account" id="account"
+                   class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-user"></i>
+                </a>
+
+                <ul id="account-menu" class="dropdown-menu account" role="menu">
+                    <li role="presentation" class="account-picture">
+                        <img src="/static/dashbord/img/2.png" alt="">
+                        {{request.user.username}}
+                    </li>
+                    <li role="presentation">
+                        <a href="{% url 'accounts-profile' %}" class="link">
+                            <i class="fa fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="{% url 'account_logout'%}" class="link">
+                            <i class="glyphicon glyphicon-off"></i>
+                            Logout
+                        </a>
+                    </li>
+
+                    <li role="presentation">
+                        <a href="#" class="link">
+                            <i class="fa fa-inbox"></i>
+                            Suports
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="hidden-xs"><a href="{% url 'account_logout'%}"><i class="glyphicon glyphicon-off"></i></a></li>
+        </ul>
+
+        <div class="notifications pull-right">
+            <div class="alert pull-right">
+                <a href="#" class="close ml-xs" data-dismiss="alert">&times;</a>
+                <i class="fa fa-info-circle mr-xs"></i> Need suport? talk with <a id="notification-link" href="#">Experts</a>
+            </div>
+        </div>
+
+    </div>
+</header>  

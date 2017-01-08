@@ -7,7 +7,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     balance =  models.FloatField("Account  Balance",default=0.0)
-    
+    phone =  models.CharField("Phone",max_length=12,null=True, blank=True)
+    alternet_email = models.CharField("Alternet Email ",max_length=100,null=True, blank=True)
 
     @property
     def bid_amount(self):
