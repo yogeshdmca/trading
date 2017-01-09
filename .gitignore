@@ -1,0 +1,12 @@
+*.log
+*.pot
+*.pyc
+python-env/*
+media/cache/*
+static/compress/*
+*.py~
+*.pyo
+media
+collected_static/*
+*.mo
+.env

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% load widget_tweaks %}
+
+{% block page_title %}FAQ{% endblock page_title %}
+
+{% block content %}
+        <div class="row">
+            <div class="col-md-12">
+                <h4><strong></strong> FAQ</h4>
+                <div class="panel-group" id="accordion2">
+                    {% for faq in faqs %}
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{ forloop.counter }}">
+                                <h2>{{faq.title}}</h2>
+                            </a>
+                        </div>
+                        <div id="collapse{{ forloop.counter }}" class="panel-collapse in collapse" style="height: auto;">
+                            <div class="panel-body">
+                                {{faq.text}}
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load account %}
+{% user_display user as user_display %}
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Confirm account</title>    
+</head>
+<body>
+
+<div align="center">
+
+    <div style="font-family:Arial; font-size:10pt; width:640px; height:auto; padding:5px 30px 15px 30px; border:solid 1px #CCCCCC; overflow:auto; text-align:left; background-image:url(http://.com/Images/EmailBg.png); background-repeat:no-repeat;">
+        <div id="LogoContainer" style="width:200px; height:70px; float:left; margin-top:10px; border-bottom:solid 3px #999999;">
+            <img src="http://www.geofinex.com/Images/logo.png" style="width:200px; height:auto;" /><br />
+        </div>
+        
+        <div id="logoRight" style="margin:10px 0px 0px 0px; width:440px; height:70px; float:right; border-bottom:solid 3px #ffcb08;"></div>
+
+        <div style = "margin:75px 0px 0px 0px; padding:20px 0px 0px 0px;">
+            Hello <b>{{user_display}}</b>,<br /><br />
+            Thank you for the registration with IQoptionexperts.<br /><br />
+
+            To verify that you are the owner of this e-mail address and enable notifications, <a href="{{activate_url}}">click here</a>.<br /><br />
+            
+            If you cannot access the link above, please copy and paste the link below into your browser:
+            <a href="{{activate_url}}">{{activate_url}}</a>
+
+                <p>Do not reply to this message. This e-mail message has been sent from an unmonitored e-mail address, why we are unable to respond to any replies sent to this e-mail address.</p>
+                <br />
+
+                Wish you all the best<br />
+                (IQoptionexperts Family)<br />
+
+                <p>For any support, please contact <a href="support@iqoptionexperts.com">support@iqoptionexperts.com</a></p>
+            </div> 
+    </div>
+    
+</div>
+
+</body>
+</html>
