@@ -1,9 +1,16 @@
 Django==1.10.5
 django-allauth==0.30.0
+django-websocket-redis==0.4.7
+django-widget-tweaks==1.4.1
+gevent==1.2.0
+greenlet==0.4.11
 oauthlib==2.0.1
 olefile==0.44
 Pillow==4.0.0
+psycopg2==2.6.2
 python-openid==2.2.5
+redis==2.10.5
 requests==2.12.4
 requests-oauthlib==0.7.0
-
+six==1.10.0
+uWSGI==2.0.14

@@ -65,6 +65,7 @@ class UserDashbord(LoginRequiredMixin,View):
     template_name = "dashbord/dashbord.html"
 
     def get(self, request):
+        
         active_signals = Signal.objects.filter(status='active')
         return render(request, self.template_name,{'active_signals':active_signals})
 

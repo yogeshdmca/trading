@@ -81,3 +81,20 @@ class Transaction(models.Model):
     updated_at = models.DateField(auto_now=True)
     amount = models.FloatField("Bid amount",default=0.0)
     type = models.CharField("Transaction Type",max_length=50, choices=TRANSACTION_TYPE)
+
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+from ws4redis.publisher import RedisPublisher
+from ws4redis.redis_store import RedisMessage
+from django.template.loader import render_to_string
+
+@receiver(post_save, sender=Signal, dispatch_uid="new_signal_created")
+def update_stock(sender, instance, **kwargs):
+    if instance.status == 'active':
+        row = render_to_string('dashbord/includes/active_signal.html', {'signal': instance})
+        redis_publisher = RedisPublisher(facility='active_signal', broadcast=True)
+        message = RedisMessage(row)
+        redis_publisher.publish_message(message)

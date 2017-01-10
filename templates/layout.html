@@ -54,33 +54,36 @@ $(function() {
 jQuery(document).ready(function($) {
     var ws4redis = WS4Redis({
         //uri: 'ws://www.iqoptionexperts.com:8000/ws/foobar?subscribe-broadcast&publish-broadcast&echo',
-        uri: '{{ WEBSOCKET_URI }}foobar?subscribe-broadcast&publish-broadcast&echo',
-        connecting: on_connecting,
-        connected: on_connected,
+        uri: '{{ WEBSOCKET_URI }}active_signal?subscribe-broadcast&publish-broadcast&echo',
+        //connecting: on_connecting,
+        //connected: on_connected,
         receive_message: receiveMessage,
-        disconnected: on_disconnected,
+        //disconnected: on_disconnected,
         heartbeat_msg: {{ WS4REDIS_HEARTBEAT }}
     });
 
     // attach this function to an event handler on your site
-    function sendMessage() {
-        ws4redis.send_message('A message');
-    }
 
-    function on_connecting() {
-        alert('Websocket is connecting...');
-    }
+    /*    function sendMessage() {
+            ws4redis.send_message('A message');
+        }
 
-    function on_connected() {
-        ws4redis.send_message('Hello');
-    }
+        function on_connecting() {
+            console.log('Websocket is connecting...');
+        }
 
-    function on_disconnected(evt) {
-        alert('Websocket was disconnected: ' + JSON.stringify(evt));
-    }
+        function on_connected() {
+            ws4redis.send_message('Hello');
+        }
+
+        function on_disconnected(evt) {
+            console.log('Websocket was disconnected: ' + JSON.stringify(evt));
+        }*/
 
     // receive a message though the websocket from the server
+    
     function receiveMessage(msg) {
+        $("#active-signal-table").append(msg)
         console.log('Message from Websocket: ' + msg);
     }
 });
