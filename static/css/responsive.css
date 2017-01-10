@@ -1,53 +1,226 @@
-@media only screen and (max-width: 500px) 
-{
-.head1 {
-    text-align: center;
-    color: white;
-    font-weight: 700;
-    font-size: 21px;
+@media (max-width: 1200px) {
+
+  .navbar-nav > li > a {
+    padding: 0 15px;
+  }
+
+  .features-item.features-right:first-of-type {
+    margin-top: 0;
+  }
+
+  .features-item:first-of-type {
+    margin-top: 50px;
+  }
+
 }
-.acc-div {
-    color: white;
-    border: solid 2px;
-    padding: 17px;
+
+
+@media (max-width: 991px) {
+
+  .section-wrap {
+    background-attachment: scroll;
+  }
+
+  .section-wrap {
+    padding: 90px 0;
+  }
+
+  .service-item-box {
+    padding: 200px 0;
+  }
+
+  .call-to-action h2 {
+    font-size: 24px;
+  }
+
+  footer .widget {
     text-align: center;
-    margin-top: 30px;
-    font-size: 16px;
-    font-weight: 700;
-    width: 45%;
-    margin-left: 79px;
-}
-.join-btt button
- {
-    background: bisque;
-    border: bisque;
-    width: 65%;
-    font-size: 29px;
-    font-weight: 700;
-    border-radius: 45px;
+  }
+
+  .hero-message h1 {
+    font-size: 40px;
+  }
+
+  .hero-message h1.text-lg {
+    font-size: 120px;
+  }
+
+  .promo-device {
+    background-image: none;
+    padding: 0 30px;
+  }
+
+  .features-item {
+    text-align: left;
+    padding: 0;
+  }
+
+  .services-content p.text-lg {
+    margin-bottom: 30px;
+  }
+
+  .services.style-2 .service-item-box {
+    padding: 30px;
+  }
+
+  .page-title .container {
+    height: 200px;
+  }
+
+  .title-text h1 {
+    font-size: 36px;
+    line-height: 1.2;
     margin-bottom: 20px;
-}
-body
-{
-	overflow-x: hidden
-}
-.navbar-default .navbar-collapse, .navbar-default .navbar-form {
-    border-color: transparent; 
-}
-.navbar-brand {
+  }
+
+  .entry-share {
     float: left;
-    padding: 0px;
-    font-size: 18px;
-    line-height: 20px;
-    height: 50px;
+    margin-top: 30px;
+  }
+
+  .portfolio-description {
+    padding-left: 0;
+    margin-top: 40px;
+  }
+
 }
-.navbar-nav {
-    float: left;
+
+
+@media (max-width: 767px) {
+  
+  h2 {
+    font-size: 22px;
+  }
+  
+  .section-wrap {
+    padding: 80px 0;
+  }
+  
+  .intro-heading {
+    font-size: 28px
+  }
+
+  .copyright {
+    text-align: center;
+  }
+
+  .footer-socials {
+    float: none;
+    text-align: center;
+  }
+
+  .hero-message h1.text-lg {
+    font-size: 90px;
+  }
+
+  .result-box {
+    margin-top: 30px;
+  }
+
+  .service-descr {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .service-title {
+    top: 40%;
+    -moz-transform: translateY(-25%);
+    -ms-transform: translateY(-25%);
+    -o-transform: translateY(-25%);
+    transform: translateY(-25%);
+  }
+
+  .blog-content {
+    padding: 0 10px;
+  }
+
+  .related-posts h5 {
+   margin-bottom: 40px;
+  }
+
 }
-.logo-div
-{
- 	width: 70%;
-	margin-top: -40px;
-	margin-left: 10px;
+
+
+@media (max-width: 640px) {
+
+  h1 { font-size: 24px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 19px; }
+  h4 { font-size: 18px; }
+
+  .section-wrap.intro {
+    padding: 70px 0 0;
+  }
+
+  .intro-heading {
+    font-size: 22px
+  }
+
+  .hero-message h1 {
+    font-size: 32px;
+  }
+
+  .hero-message h1.text-lg {
+    font-size: 60px;
+  }
+
 }
+
+
+@media (max-width: 480px) {
+
+  .hero-message h1.text-lg {
+    font-size: 36px;
+  }
+
+  .services-tabs li {
+    width: 50%;
+  }
+
+  .services .services-tabs i {
+    font-size: 36px;
+  }
+
+  .nav-tabs > li {
+    width: 100%;
+  }
+
+  .nav-tabs {
+    border-bottom: transparent;
+  }
+
+  .nav.nav-tabs > li > a {
+    margin-right: 0;
+  }
+
+  .entry-comments .comment-avatar,
+  .entry-author-box .author-img {
+    width: 50px;
+  }
+
+  .entry-comments .comment-content,
+  .entry-author-box .author-info {
+    padding-left: 70px;
+  }
+
+  .page-404 h1 {
+    font-size: 80px;
+  }
+
+}
+
+
+@media (max-width: 380px) {
+
+}
+
+
+.tp-bullet {
+    -webkit-border-radius: 0%;
+    -moz-border-radius: 0%;
+    -ms-border-radius: 0%;
+    -o-border-radius: 0%;
+    border-radius: 0%;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
 }

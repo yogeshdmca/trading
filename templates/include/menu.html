@@ -1,26 +1,54 @@
-<div class="container-fluid">
-<div class="navbar navbar-default navbar-static-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#"><img src="/static/images/logo.png" class="logo-div"></a>
-    </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'accounts-profile' %}">My Profile</a></li>
-        {% else %}
-        <li><a href="{% url 'account_signup' %}">Join Me</a></li>
-        <li><a href="{% url 'account_login' %}">Login</a></li>
+  <!-- Navigation -->
+  <header class="nav-type-2">
 
-        {% endif %}
-      
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div>
-</div>
-</div>
+    <nav class="navbar navbar-static-top">
+      <div class="navigation">
+        <div class="container relative">
+
+          <form method="get" class="search-wrap">
+            <input type="search" class="form-control" placeholder="Type &amp;  Enter">
+          </form>
+
+          <div class="row">
+
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <!-- Logo -->
+              <div class="logo-container">
+                <div class="logo-wrap local-scroll">
+                  <a href="/">
+                    <h1> IQoptionExperts </h1>
+                  </a>
+                </div>
+              </div>
+            </div> <!-- end navbar-header -->
+
+
+            <div class="col-md-9 nav-wrap">
+              <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                  {% if user.is_authenticated %}
+                  <li><a href="{% url 'accounts-profile' %}">My Profile</a></li>
+                  <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                  {% else %}
+                  <li><a href="{% url 'account_signup' %}">Join Me</a></li>
+                  <li><a href="{% url 'account_login' %}">Login</a></li>
+                  {% endif %}
+                  <li class="active"><a href="#">About us</a></li>
+                  <li class="active"><a href="{% url 'faq'%}">FAQ</a></li>
+                </ul>
+              </div>
+            </div> <!-- end col -->
+        
+          </div> <!-- end row -->
+        </div> <!-- end container -->
+      </div> <!-- end navigation -->
+    </nav> <!-- end navbar -->
+
+  </header> <!-- end navigation -->

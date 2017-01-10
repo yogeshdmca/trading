@@ -1,42 +1,13 @@
 {% extends "base.html" %}
 
   {% block contents %}
+    <div class="main-wrapper oh">
     {% include 'include/banner.html' %}
 
-    <div class="container-fluid" style="background-image: url('/static/images/download.jpg');">
-      <h2 class="head2">Simple 3 Steps !</h2>
-        <div class="basline"></div>
-        <div class="container">
-          <div class="col-lg-12 main-twl">
-            <div class="col-lg-4">
-              <div class="join-div">1. Join </div>
-              <div class="img-se"><img src="/static/images/join.png"></div>
-            </div>
-            <div class="col-lg-4">
-              <div class="join-div">2. Deposite</div>
-              <div class="img-se"><img src="/static/images/deposit-home.png"></div>
-            </div>
-            <div class="col-lg-4">
-              <div class="join-div">3. Auto Trade </div>
-              <div class="img-se"><img src="/static/images/robottrade.png"></div>
-          </div>
-        </div>
-        <div class="col-lg-12 join-btt"><button class="btn btn-default btn-lg" type="button">Join now !</div>
-      </div>
-    </div>
+    {% include 'include/about.html' %}
+    {% include 'include/services.html' %}
 
-
-    <div class="container">
-      <h2 class="trade-head">Trading Indicators</h2>
-      <div class="col-lg-12">
-        <div class="col-lg-6">
-          <p class="ind-paregraph">OptionRobot.com has six indicators which you can adjust in your settings. If multiple indicators are selected a signal is only generated when both satisfy each individual algo respectively. For example if both RSI and CCI indicators are selected then both require identical SELL signals for OptionRobot.com to place a SELL trade in your linked broker.</p>
-        </div>
-        <div class="col-lg-6">
-          <p class="ind-paregraph">
-            Also vice-versa, if any two indicators are selected then both have to be BUY signals for OptionRobot.com to place a BUT trade. If any of multiple indicator selections have different signals (BUY or SELL) then no trade is executed.
-          </p>
-        </div>
-      </div>
-    </div>
+     {% include 'include/services2.html' %}
+     {% include 'include/result.html' %}
+     </div>
   {% endblock contents %}

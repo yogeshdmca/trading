@@ -19,14 +19,13 @@
           <label for="{{field.name}}">{{field.label}}</label>
           <div>
           {{ field|add_class:"form-control place-tex"}}
-          <i class="fa fa-user fa-2x i-box"></i>
           </div>
             <span class="label label-danger">{{field.errors.as_text}}</span>
         </div>
         {% endfor %}
 
-        <button type="submit" class="btn btn-default reg-btt">Register</button>
-        <a class="label label-default" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+        <button type="submit" class="btn btn-lg btn-dark">Register</button>
+        <a class="btn btn-sm btn-stroke" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
       </form>
     </div>
     <div class="col-lg-3">

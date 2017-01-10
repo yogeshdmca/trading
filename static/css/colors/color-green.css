@@ -1,0 +1,91 @@
+
+::-moz-selection { background: #30ad07; }
+::-webkit-selection { background: #30ad07; }
+::selection { background: #30ad07; }
+
+
+a,
+.dark-link:hover,
+.loader,
+.navbar-nav > li > a:hover,
+.navbar .navbar-nav > .active > a,
+.navbar .navbar-nav > .active > a:focus,
+.navbar-nav > .active > a:hover,
+.subheading,
+.entry-meta li a:hover,
+.blog-col h4 a:hover,
+.services.style-2 i,
+.services i,
+.socials.footer-socials a:hover i,
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > a:hover,
+.from-blog.style-2 .blog-col h4 a:hover,
+.from-blog.style-2 .entry-meta li a:hover,
+.work-description span a:hover,
+.navbar-nav .open .dropdown-menu > li > a:hover,
+.portfolio-filter a.active,
+.portfolio-filter a:hover,
+.blog-content .entry-title a:hover,
+.flexslider .flex-direction-nav .flex-nav-next:hover a,
+.flexslider .flex-direction-nav .flex-nav-prev:hover a,
+blockquote > p > a:hover,
+.widget.categories ul li a:hover,
+.widget.latest-posts ul li a:hover,
+.related-posts a:hover h5,
+.bullets li:before,
+.arrows i,
+.checks i,
+.accordion .panel-default>.panel-heading > a.minus,
+.nav.nav-tabs>li.active>a,
+.owl-next:hover i,
+.owl-prev:hover i,
+.portfolio-description ul > li a:hover,
+.services-tabs li.active i,
+.services-tabs .nav.nav-tabs > li.active > a,
+.services-tabs .nav.nav-tabs > li > a:hover,
+.services-tabs .nav.nav-tabs > li > a:hover i {
+  color: #30ad07;
+}
+
+
+.project-icons a:hover,
+.features-icons .service-item-box a,
+.icon-effect-3 .hi-icon,
+.icon-effect-3 .hi-icon:after,
+.meter .progress-bar,
+.owl-page.active span,
+.btn.btn-color,
+.btn.btn-stroke:hover,
+.btn.btn-dark:hover,
+.btn.btn-white:hover,
+.btn.btn-white:hover,
+.btn.btn-light:hover,
+.btn.btn-transparent:hover,
+.call-to-action.style-3:hover,
+.pagination a:hover,
+.tags a:hover,
+.dropcap.style-2,
+.highlight,
+.accordion .panel-heading:hover,
+.nav-tabs > li > a:hover,
+.accordion .panel-heading > a > span,
+.customNavigation a:hover,
+.entry-content .entry-tags a:hover {
+  background-color: #30ad07;
+}
+
+
+.icon-effect-3 .hi-icon {
+  box-shadow: 0 0 0 4px #30ad07;
+}
+
+.dropdown-menu {
+	border-top-color: #30ad07;
+}
+
+.dropdown-menu > li > a:after,
+.blockquote-style-2,
+.accordion .panel-heading:hover a.plus,
+.nav-tabs > li > a:hover {
+	border-color: #30ad07;
+}
