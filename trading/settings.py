@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'q9+1cli039zfw564d*=aw=8+&dfvux8(+=+45v$z&tn85&v7b@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -161,22 +161,20 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_SESSION_REMEMBER =False
 
 
-# ACCOUNT_PASSWORD_MIN_LENGTH = 6
-
-# ACCOUNT_UNIQUE_EMAIL= True
-
-# ACCOUNT_USER_MODEL_EMAIL_FIELD = True
+ACCOUNT_EMAIL_VERIFICATION = None
 
 ACCOUNT_USERNAME_REQUIRED = False
 AUTH_PROFILE_MODULE = 'account.Profile'
 
-
-# email settings 
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'geitpl@gmail.com'
 EMAIL_HOST_PASSWORD = 'purnima2014'
-DEFAULT_FROM_EMAIL = 'abc@g.com'
-DEFAULT_TO_EMAIL = 'abc@g.com'
+DEFAULT_FROM_EMAIL = 'no-reply@iqoptionexperts.com'
+
+try:
+    from server_settings import *
+except:
+    pass
