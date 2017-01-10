@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 from django.views import View
@@ -22,7 +23,7 @@ def check_profile(request):
 
 
 
-class UserProfile(View):
+class UserProfile(LoginRequiredMixin,View):
     template_name = "dashbord/profile.html"
     def get(self, request):
         user = request.user
@@ -60,7 +61,7 @@ class UserProfile(View):
 # class UserProfile(TemplateView):
 #     template_name = "dashbord/profile.html"
 
-class UserDashbord(View):
+class UserDashbord(LoginRequiredMixin,View):
     template_name = "dashbord/dashbord.html"
 
     def get(self, request):
@@ -68,7 +69,7 @@ class UserDashbord(View):
         return render(request, self.template_name,{'active_signals':active_signals})
 
 
-class SignalListing(View):
+class SignalListing(LoginRequiredMixin,View):
     template_name = "dashbord/signal_listing.html"
 
     def get(self, request):
