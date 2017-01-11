@@ -9,3 +9,30 @@
 
     </div>
 {% endblock content %}
+
+
+{% block JS%}
+
+{{ block.super }}
+<script type="text/javascript">
+    window.setInterval(function(){
+        callSignal() 
+    }, 15000);
+
+function callSignal(){
+    $.ajax({
+        url: "{% url 'latest_signal-ajax' %}",
+        success: function(result){
+            $("#signals-acount").html(result)
+            //console.log(result)
+        }
+});
+
+}
+</script>
+
+
+
+
+
+{% endblock %}

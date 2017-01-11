@@ -79,3 +79,10 @@ class SignalListing(LoginRequiredMixin,View):
         lose_signals = Signal.objects.filter(status='lose')
         win_signals = Signal.objects.filter(status='win')
         return render(request, self.template_name,{'lose_signals':lose_signals,'win_signals':win_signals})
+
+
+def latest_signal_ajax(request):
+        signals = Signal.objects.filter()[:5]
+        active_singals = Signal.objects.filter(status='active')
+        active_singal = active_singals and active_singals[0] or False
+        return render(request, 'dashbord/includes/signal_dashbord.html',{'active_singal':active_singal,'signals':signals })

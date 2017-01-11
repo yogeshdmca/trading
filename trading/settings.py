@@ -179,12 +179,6 @@ DEFAULT_FROM_EMAIL = 'no-reply@iqoptionexperts.com'
 
 
 
-
-
-
-
-
-
 DEFAULT_FROM_EMAIL = 'no-reply@iqoptionexperts.com'
 STATIC_ROOT = os.path.join(BASE_DIR, "collected_static")
 DATABASES = {

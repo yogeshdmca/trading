@@ -3,6 +3,7 @@
                 <section class="widget">
                     <div class="jumbotron">
                         <div class="container">
+                            {% if active_singal %}
                             <h1>{{active_singal.currency}}</h1>
                             <p class="lead"><em>Signal timeout</em> {{active_singal.expire_in}} </p>
                             <p> 
@@ -16,6 +17,12 @@
                                 </a>
                                 {% endif %}
                             </p>
+                            {% else %}
+                                <div class="alert alert-danger">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <strong><i class="fa fa-bell-o"></i> Waiting for Signal........</strong> 
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </section>
@@ -59,7 +66,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for signal in active_signals %}
+                            {% for signal in signals %}
                             <tr>
                                 <td>{{signal.currency}}</td>
                                 <td>{{signal.direction}}</td>
