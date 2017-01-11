@@ -25,11 +25,12 @@
         {% include 'dashbord/includes/menu.html'%}.
         <div class="content container">
             <h2 class="page-title">{% block page_title %}Dashboard <small>Statistics and more</small>{% endblock page_title %}</h2>
-        </div>
+        
 
         {% block content %}
 
         {% endblock content %}
+        </div>
 
         <div class="loader-wrap hiding hide">
             <i class="fa fa-circle-o-notch fa-spin"></i>

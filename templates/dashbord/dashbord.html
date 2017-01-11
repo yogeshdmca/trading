@@ -4,76 +4,8 @@
 {% block page_title %}Active signal <small>Dashbord</small>  {% endblock page_title %}
 
 {% block content %}
-        <div class="row">
-            <div class="col-md-8">
-                <section class="widget">
-                    <header>
-                        <div class="widget-controls">
-                            <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
-                            <a data-widgster="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
-                        </div>
-                    </header>
-                    <div class="widget-body">
-                        <h3>Active <span class="fw-semi-bold">Signal for you ...</span></h3>
-                        <p>Each row is Active sinals for bid. You will never lost there.</p>
-                        <table class="table table-striped" id="active-signal-table">
-                            <thead>
-                            <tr>
-                                <th>Currency Pair</th>
-                                <th>Directions</th>
-                                <th>Date / Time</th>
-                                <th>Expirations</th>
-                                <th>bid on it?</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for signal in active_signals %}
-                            <tr>
-                                <td>{{signal.currency}}</td>
-                                <td>{{signal.direction}}</td>
-                                <td><span class="label label-danger">{{signal.updated_at}}</span> </td>
-                                <td><span class="label label-danger">{{signal.expire_in}}</span> </td>
-                                <td>
-                                <button type="button" class="btn btn-success" placement="top">
-                                        Yes
-                                </button>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            </div>
-            <div class="col-md-4">
-                <section class="widget">
-                    <header>
-                        
-                        <div class="widget-controls">
-                            <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
-                            <a data-widgster="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
-                        </div>
-                    </header>
-                    <div class="body">
-                        <h3>Virtual <span class="fw-semi-bold">Account balance</span></h3>
-                        <p>It is Virtual currency same as you have in your broker account, as per our calculation we have given you bid amount, so you need to palc bit at given account with same bid amount for active signal</p>
-                        <table class="table table-bordered table-lg mt-lg mb-0">
-                            <thead>
-                            <tr>
-                                <th>Balanace</th>
-                                <th class="text-align-right">Bid amount</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>{{user.profile.balance}}</td>
-                                <td class="text-align-right">{{user.profile.bid_amount}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            </div>
-        </div>
+    <div id="signals-acount">
+    {% include 'dashbord/includes/signal_dashbord.html'%}
 
+    </div>
 {% endblock content %}

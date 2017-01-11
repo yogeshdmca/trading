@@ -66,8 +66,10 @@ class UserDashbord(LoginRequiredMixin,View):
 
     def get(self, request):
         
-        active_signals = Signal.objects.filter(status='active')
-        return render(request, self.template_name,{'active_signals':active_signals})
+        signals = Signal.objects.filter()[:5]
+        active_singals = Signal.objects.filter(status='active')
+        active_singal = active_singals and active_singals[0] or False
+        return render(request, self.template_name,{'active_singal':active_singal,'signals':signals })
 
 
 class SignalListing(LoginRequiredMixin,View):
