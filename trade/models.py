@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
-
+from datetime import datetime, timedelta
+from django.utils import timezone
 from django.db import models
 from django.conf import settings
 
@@ -46,6 +47,14 @@ class ExpireIN(models.Model):
     def __str__(self):
         return "%s %s"%(self.time,self.unit)
 
+    @property
+    def get_time_in_minuts(self):
+        if self.unit == 'hours':
+            return int(self.time*60*60)
+        if self.unit == 'seconds':
+            return int(self.time)
+        else:
+            return int(self.time*60)
         
 
 class Signal(models.Model):
@@ -61,6 +70,13 @@ class Signal(models.Model):
 
     def __str__(self):
         return "%s %s %s %s"%(self.currency,self.expire_in,self.direction,self.status)
+
+    @property
+    def is_visible(self):
+            return timezone.now() < self.created_at+timedelta(seconds=self.expire_in_seonds)
+    @property
+    def expire_in_seonds(self):
+        return self.expire_in.get_time_in_minuts/8.0
 
 
 
@@ -93,7 +109,10 @@ from django.template.loader import render_to_string
 
 @receiver(post_save, sender=Signal, dispatch_uid="new_signal_created")
 def update_stock(sender, instance, **kwargs):
-        row = render_to_string('dashbord/includes/active_signal.html', {'signal': instance})
+        singals = type(instance).objects.filter(status='active')
+        if instance.status!='active':
+            instance = False
+        row =  render_to_string('dashbord/includes/signal_dashbord.html',{'active_singal':instance,'signals':singals })
         redis_publisher = RedisPublisher(facility='active_signal', broadcast=True)
         message = RedisMessage(row)
         redis_publisher.publish_message(message)

@@ -14,10 +14,27 @@
 {% block JS%}
 
 {{ block.super }}
+
+<script type="text/javascript">
+
+jQuery(document).ready(function($) {
+    var ws4redis = WS4Redis({
+        uri: '{{ WEBSOCKET_URI }}active_signal?subscribe-broadcast&publish-broadcast&echo',
+        receive_message: receiveMessage,
+        heartbeat_msg: {{ WS4REDIS_HEARTBEAT }}
+    });
+    
+    function receiveMessage(msg) {
+        $("#signals-acount").html(msg)
+        console.log('Message from Websocket: ' + msg);
+    }
+});
+</script>
+
 <script type="text/javascript">
     window.setInterval(function(){
         callSignal() 
-    }, 15000);
+    }, 30000);
 
 function callSignal(){
     $.ajax({

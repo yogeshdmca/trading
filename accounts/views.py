@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 from django.views import View
 from .forms import *
 from trade.models import Signal
+from datetime import datetime
 
 # Create your views here.
 
@@ -66,10 +67,15 @@ class UserDashbord(LoginRequiredMixin,View):
 
     def get(self, request):
         
-        signals = Signal.objects.filter()[:5]
-        active_singals = Signal.objects.filter(status='active')
-        active_singal = active_singals and active_singals[0] or False
-        return render(request, self.template_name,{'active_singal':active_singal,'signals':signals })
+        signals = Signal.objects.filter(status='active')
+        active_singals = Signal.objects.filter(status='active').first()
+        if active_singals and active_singals.is_visible:
+            singal = active_singals
+        else:
+            singal= False
+
+
+        return render(request, self.template_name,{'active_singal':singal,'signals':signals })
 
 
 class SignalListing(LoginRequiredMixin,View):
@@ -82,7 +88,11 @@ class SignalListing(LoginRequiredMixin,View):
 
 
 def latest_signal_ajax(request):
-        signals = Signal.objects.filter()[:5]
-        active_singals = Signal.objects.filter(status='active')
-        active_singal = active_singals and active_singals[0] or False
-        return render(request, 'dashbord/includes/signal_dashbord.html',{'active_singal':active_singal,'signals':signals })
+    "Ajax call that will refress active signals"
+    signals = Signal.objects.filter(status='active')
+    active_singals = Signal.objects.filter(status='active').first()
+    if active_singals and active_singals.is_visible:
+        singal = active_singals
+    else:
+        singal= False
+    return render(request, 'dashbord/includes/signal_dashbord.html',{'active_singal':singal,'signals':signals })

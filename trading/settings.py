@@ -200,4 +200,4 @@ WEBSOCKET_URL = '/ws/'
 WS4REDIS_PREFIX = 'ws'
 
 WSGI_APPLICATION = 'ws4redis.django_runserver.application'
-
+WS4REDIS_EXPIRE = 1
