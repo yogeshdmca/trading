@@ -77,6 +77,10 @@ class Signal(models.Model):
     @property
     def expire_in_seonds(self):
         return self.expire_in.get_time_in_minuts/8.0
+    @property
+    def get_expire_time(self):
+        time_ago = int((timezone.now()- self.created_at).total_seconds())
+        return (self.expire_in.get_time_in_minuts/8.0)-time_ago
 
 
 

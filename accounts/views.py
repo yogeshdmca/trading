@@ -65,7 +65,7 @@ class UserDashbord(LoginRequiredMixin,View):
 
     def get(self, request):
         signals = Signal.objects.filter(status='active')
-        active_singal = Signal.objects.filter(status='active').first()
+        active_singal = Signal.objects.filter(status='active').last()
         if active_singal and not active_singal.is_visible:
             active_singal = False
 
@@ -83,7 +83,7 @@ class SignalListing(LoginRequiredMixin,View):
 def latest_signal_ajax(request):
     "Ajax call that will refress active signals"
     signals = Signal.objects.filter(status='active')
-    active_singal = Signal.objects.filter(status='active').first()
+    active_singal = Signal.objects.filter(status='active').last()
     if active_singal and not active_singal.is_visible:
         active_singal = False
 
