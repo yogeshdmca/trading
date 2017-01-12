@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% load widget_tweaks %}
 
-{% block page_title %}Win and Lose signal  {% endblock page_title %}
+{% block page_title %}WON/LOSE SIGNAL HISTORY  {% endblock page_title %}
 
 {% block content %}
         <div class="row">
@@ -14,8 +14,7 @@
                         </div>
                     </header>
                     <div class="widget-body">
-                        <h3>Active <span class="fw-semi-bold">Signal Win</span></h3>
-                        <p>Signbal created by Iqoptionexperts that win.</p>
+                        <h3><span class="fw-semi-bold">SIGNAL WON BY US</span></h3>
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -30,9 +29,9 @@
                             <tr>
                                 <td>{{signal.currency}}</td>
                                 <td>{{signal.direction}}</td>
-                                <td><span class="label label-danger">{{signal.updated_at}}</span> </td>
+                                <td><span class="label label-success">{{signal.updated_at}}</span> </td>
                                 <td>
-                                    <span class="label label-danger">{{signal.expire_in}}</span> </td>
+                                    <span class="label label-success">{{signal.expire_in}}</span> </td>
                                 <td>
                                 </td>
                             </tr>
@@ -52,8 +51,7 @@
                         </div>
                     </header>
                     <div class="widget-body">
-                        <h3>Active <span class="fw-semi-bold">Signal Lose</span></h3>
-                        <p>Signbal created by Iqoptionexperts that lose.</p>
+                        <h3><span class="fw-semi-bold">SIGNAL LOSE BY US</span></h3>
                         <table class="table table-striped">
                             <thead>
                             <tr>

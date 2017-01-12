@@ -22,8 +22,6 @@ def check_profile(request):
         return HttpResponseRedirect(reverse('accounts-settings'))
 
 
-
-
 class UserProfile(LoginRequiredMixin,View):
     template_name = "dashbord/profile.html"
     def get(self, request):
@@ -66,21 +64,16 @@ class UserDashbord(LoginRequiredMixin,View):
     template_name = "dashbord/dashbord.html"
 
     def get(self, request):
-        
         signals = Signal.objects.filter(status='active')
-        active_singals = Signal.objects.filter(status='active').first()
-        if active_singals and active_singals.is_visible:
-            singal = active_singals
-        else:
-            singal= False
+        active_singal = Signal.objects.filter(status='active').first()
+        if active_singal and not active_singal.is_visible:
+            active_singal = False
 
-
-        return render(request, self.template_name,{'active_singal':singal,'signals':signals })
+        return render(request, self.template_name,{'active_singal':active_singal,'signals':signals })
 
 
 class SignalListing(LoginRequiredMixin,View):
     template_name = "dashbord/signal_listing.html"
-
     def get(self, request):
         lose_signals = Signal.objects.filter(status='lose')
         win_signals = Signal.objects.filter(status='win')
@@ -90,9 +83,8 @@ class SignalListing(LoginRequiredMixin,View):
 def latest_signal_ajax(request):
     "Ajax call that will refress active signals"
     signals = Signal.objects.filter(status='active')
-    active_singals = Signal.objects.filter(status='active').first()
-    if active_singals and active_singals.is_visible:
-        singal = active_singals
-    else:
-        singal= False
-    return render(request, 'dashbord/includes/signal_dashbord.html',{'active_singal':singal,'signals':signals })
+    active_singal = Signal.objects.filter(status='active').first()
+    if active_singal and not active_singal.is_visible:
+        active_singal = False
+
+    return render(request, 'dashbord/includes/signal_dashbord.html',{'active_singal':active_singal,'signals':signals })

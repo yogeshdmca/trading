@@ -1,12 +1,11 @@
 {% extends "layout.html" %}
 {% load widget_tweaks %}
 
-{% block page_title %}Active signal <small>Dashbord</small>  {% endblock page_title %}
+{% block page_title %} LIVE SIGNALS {% endblock page_title %}
 
 {% block content %}
     <div id="signals-acount">
     {% include 'dashbord/includes/signal_dashbord.html'%}
-
     </div>
 {% endblock content %}
 
@@ -14,8 +13,31 @@
 {% block JS%}
 
 {{ block.super }}
+<script type="text/javascript" src="/static/timer/TimeCircles.js"></script>
+<link href="/static/timer/TimeCircles.css" rel="stylesheet">  
+
 
 <script type="text/javascript">
+startCountdown()
+function startCountdown(){
+    $("#Countdown").TimeCircles({ time: { Days: { show: false }, Hours: { show: false } }});
+    $("#Countdown").TimeCircles().addListener(function(unit, value, total) {
+    if(total <= 2 && total >= -6){
+        expirSignal()
+       };
+    });
+    }
+
+function expirSignal(){
+    console.log("woking....")
+    $("#Countdown").TimeCircles().destroy();
+
+    var html = "<div class='alert alert-danger'>"+
+            "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>"+
+            '<strong><i class="fa fa-bell-o"></i> Waiting for Signal.......</strong>'+ 
+            '</div>'
+    $('#active-signal').html(html)
+}
 
 jQuery(document).ready(function($) {
     var ws4redis = WS4Redis({
@@ -26,15 +48,13 @@ jQuery(document).ready(function($) {
     
     function receiveMessage(msg) {
         $("#signals-acount").html(msg)
+        startCountdown()
         console.log('Message from Websocket: ' + msg);
     }
 });
 </script>
 
 <script type="text/javascript">
-    window.setInterval(function(){
-        callSignal() 
-    }, 30000);
 
 function callSignal(){
     $.ajax({
