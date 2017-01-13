@@ -1,3 +1,4 @@
+{% load static %}
   <!-- Navigation -->
   <header class="nav-type-2">
 
@@ -23,7 +24,7 @@
               <div class="logo-container">
                 <div class="logo-wrap local-scroll">
                   <a href="/">
-                    <h1> IQoptionExperts </h1>
+                    <img src="{% static 'images/logo.png' %}">
                   </a>
                 </div>
               </div>
@@ -40,7 +41,7 @@
                   <li><a href="{% url 'account_signup' %}">Join Me</a></li>
                   <li><a href="{% url 'account_login' %}">Login</a></li>
                   {% endif %}
-                  <li class="active"><a href="#">About us</a></li>
+                  <li class="active"><a href="#home_about_us" id="about_us">About us</a></li>
                   <li class="active"><a href="{% url 'faq'%}">FAQ</a></li>
                 </ul>
               </div>

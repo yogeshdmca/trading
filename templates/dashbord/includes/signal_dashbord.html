@@ -22,7 +22,8 @@
                             {% else %}
                                 <div class="alert alert-danger">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                                    <strong><i class="fa fa-bell-o"></i> Waiting for Signal........</strong> 
+                                    {# <strong><i class="fa fa-bell-o fa-dcustom"></i> Awaiting Signal...</strong> #} 
+                                    <h3><i class="fa fa-bullhorn fa-dcustom"></i> Awaiting Signal...</h3>
                                 </div>
                             {% endif %}
                             
@@ -35,15 +36,15 @@
 
                 <div class="alert alert-success">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                    <strong><i class="fa fa-check"></i> Account virtual bid amount</strong> {{user.profile.bid_amount}}
+                    <strong><i class="fa fa-check fa-dcustom"></i> Account virtual bid amount</strong> {{user.profile.bid_amount}}
                 </div>
                 <div class="alert alert-info">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                    <strong><i class="fa fa-check"></i> Account Virtual balance </strong> {{user.profile.balance}}
+                    <strong><i class="fa fa-check fa-dcustom"></i> Account Virtual balance </strong> {{user.profile.balance}}
                 </div>
                 <div class="alert alert-warning">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                    <strong><i class="fa fa-bell-o"></i> DO NOY HURRY , OPEN POSITION CAREFULLY</strong> 
+                    <strong><i class="fa fa-bell-o fa-dcustom"></i> DO NOY HURRY , OPEN POSITION CAREFULLY</strong> 
                 </div>
             </div>
         </div>
@@ -63,9 +64,9 @@
                             <thead>
                             <tr>
                                 <th>Currency Pair</th>
-                                <th>Directions</th>
+                                <th>Direction</th>
                                 <th>Date / Time</th>
-                                <th>Expirations</th>
+                                <th>Expiration</th>
                                 <th>bid on it?</th>
                             </tr>
                             </thead>
