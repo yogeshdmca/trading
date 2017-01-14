@@ -1,7 +1,7 @@
 
-::-moz-selection { background: #30ad07; }
-::-webkit-selection { background: #30ad07; }
-::selection { background: #30ad07; }
+::-moz-selection { background: #f36b21; }
+::-webkit-selection { background: #f36b21; }
+::selection { background: #f36b21; }
 
 
 a,
@@ -44,7 +44,7 @@ blockquote > p > a:hover,
 .services-tabs .nav.nav-tabs > li.active > a,
 .services-tabs .nav.nav-tabs > li > a:hover,
 .services-tabs .nav.nav-tabs > li > a:hover i {
-  color: #30ad07;
+  color: #f36b21;
 }
 
 
@@ -71,21 +71,21 @@ blockquote > p > a:hover,
 .accordion .panel-heading > a > span,
 .customNavigation a:hover,
 .entry-content .entry-tags a:hover {
-  background-color: #30ad07;
+  background-color: #f36b21;
 }
 
 
 .icon-effect-3 .hi-icon {
-  box-shadow: 0 0 0 4px #30ad07;
+  box-shadow: 0 0 0 4px #f36b21;
 }
 
 .dropdown-menu {
-	border-top-color: #30ad07;
+	border-top-color: #f36b21;
 }
 
 .dropdown-menu > li > a:after,
 .blockquote-style-2,
 .accordion .panel-heading:hover a.plus,
 .nav-tabs > li > a:hover {
-	border-color: #30ad07;
+	border-color: #f36b21;
 }

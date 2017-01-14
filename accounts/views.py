@@ -88,3 +88,8 @@ def latest_signal_ajax(request):
         active_singal = False
 
     return render(request, 'dashbord/includes/signal_dashbord.html',{'active_singal':active_singal,'signals':signals })
+
+
+class AccountBinaryHelp(LoginRequiredMixin,TemplateView):
+    template_name = "dashbord/binary_account_help.html"
+        

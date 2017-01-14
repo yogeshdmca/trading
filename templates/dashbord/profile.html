@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% load widget_tweaks %}
 
-{% block page_title %}Profile:: <small>Edit your profile here!</small>  {% endblock page_title %}
+{% block page_title %}COMPLTE YOUR PROFILE TO GET VERIFIED SIGNALS{% endblock page_title %}
 
 {% block content %}
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-8">
                 <section class="widget">
                     <header>
                         <h4><i class="fa fa-user"></i> Account Profile <small>Create new or edit existing user</small></h4>
@@ -86,17 +86,22 @@
 
                             <fieldset>
                                 <legend class="section">
-                                    Virtual amount
+                                    Our Partner Broker's Account ID & Balance. <a target="_blank" href="{% url 'accounts-need-help'%}">Need Help?</a>
                                 </legend>
+
+                                <div class="form-group">
+                                    <label for="balance" class="control-label col-sm-4">Broker Account Id <span class="required">*</span></label>
+                                    <div class="col-xs-12 col-sm-6">
+                                    {{profile.account_id|add_class:"form-control input-transparent mask"|attr:"required:required"}}
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="balance" class="control-label col-sm-4">AMOUNT <span class="required">*</span></label>
                                     <div class="col-xs-12 col-sm-6">
                                     {{profile.balance|add_class:"form-control input-transparent mask"|attr:"required:required"}}
-
                                     </div>
                                 </div>
-
-
                             </fieldset>
                             <div class="form-actions">
                                 <div class="row">
@@ -107,31 +112,28 @@
                                 </div>
                             </div>
                         </form>
+                        
+                        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="BKZ78R8ZZZFRC">
+                        <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                        <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                        </form>
+
+
                     </div>
                 </section>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <section class="widget">
                     <header>
                         <h5>
-                            <i class="fa fa-exchange"></i>
-                            Draggable events
+                            Our Partner Broker
                         </h5>
                     </header>
-                    <div class="body">
-                        <div id='external-events'>
-                            <div class='external-event bg-danger' data-event-class="bg-danger text-white"><i class="fa fa-check"></i> Buy this template</div>
-
-                            <div class='external-event bg-warning' data-event-class="bg-warning text-white">Study some Node</div>
-                            
-                            <div class='external-event bg-info' data-event-class="bg-info text-white">Open windows</div>
-
-                            <div class='external-event bg-primary' data-event-class="bg-primary text-white"><i class="fa fa-book"></i> Go to school</div>
-
-
-                            <div class='external-event bg-success' data-event-class="bg-success text-white">Make a tea</div>
-                        </div>
+                    <div class="body col-sm-offset-1">
+                        <script type="text/javascript" src="http://js.binary.com/javascript.php?prefix=O_MddlulNO66tyDIijdDK2Nd7ZgqdRLk&amp;media=809&amp;campaign=1&amp;payload=OptionExperts"></script>
                     </div>
                 </section>
             </div>

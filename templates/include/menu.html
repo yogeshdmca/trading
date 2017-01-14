@@ -23,17 +23,19 @@
               <!-- Logo -->
               <div class="logo-container">
                 <div class="logo-wrap local-scroll">
-                  <a href="/">
-                    <img src="{% static 'images/logo.png' %}">
+                  <a href="/" style="font-size: 30px;">
+                      <img class="logo" src="{% static 'images/ologo.png' %}">OptionExperts
                   </a>
+
                 </div>
               </div>
             </div> <!-- end navbar-header -->
 
 
-            <div class="col-md-9 nav-wrap">
+            <div class="col-md-8 nav-wrap">
               <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
+                   <li class="active"><a href="#home_about_us" id="about_us">Home</a></li>
                   {% if user.is_authenticated %}
                   <li><a href="{% url 'accounts-profile' %}">My Profile</a></li>
                   <li><a href="{% url 'account_logout' %}">Logout</a></li>
@@ -41,8 +43,8 @@
                   <li><a href="{% url 'account_signup' %}">Join Me</a></li>
                   <li><a href="{% url 'account_login' %}">Login</a></li>
                   {% endif %}
-                  <li class="active"><a href="#home_about_us" id="about_us">About us</a></li>
-                  <li class="active"><a href="{% url 'faq'%}">FAQ</a></li>
+                 
+                  <li><a href="{% url 'faq'%}">FAQ</a></li>
                 </ul>
               </div>
             </div> <!-- end col -->

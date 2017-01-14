@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% load widget_tweaks %}
+
+{% block page_title %}SIGNAL HISTORY  {% endblock page_title %}
+
+{% block content %}
+        <div class="row">
+            <div class="col-md-9">
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                    <strong>1. <a href="http://record.binary.com/_O_MddlulNO66tyDIijdDK2Nd7ZgqdRLk/1/?payload=OptionExpert">Need to create a account with our Broker</a></strong>
+                </div>
+                <div class="alert alert-info">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                    <strong>2. Activate and add payment with broker website,</strong> {{user.profile.balance}}
+                </div>
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                    <strong>3. Copy and past your account id on input box.</strong> 
+                </div>
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                    <strong>4.Still you have issue? whatsap to us : +91-8002068980</strong> 
+                </div>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="widget">
+                    <div class="jumbotron">
+                        <div class="container">
+                        <img src="/static/images/binary_help.png">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+{% endblock content %}

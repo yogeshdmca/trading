@@ -9,6 +9,7 @@ class Profile(models.Model):
     balance =  models.FloatField("Account  Balance",default=0.0)
     phone =  models.CharField("Phone",max_length=12,null=True, blank=True)
     alternet_email = models.CharField("Alternet Email ",max_length=100,null=True, blank=True)
+    account_id = models.CharField("Broker account Id ",max_length=200,null=True, blank=True)
 
     @property
     def bid_amount(self):
