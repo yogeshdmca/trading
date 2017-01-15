@@ -165,6 +165,8 @@ ACCOUNT_SESSION_REMEMBER =False
 ACCOUNT_EMAIL_VERIFICATION = None
 
 ACCOUNT_USERNAME_REQUIRED = False
+
+
 AUTH_PROFILE_MODULE = 'account.Profile'
 
 
@@ -176,21 +178,18 @@ EMAIL_HOST_PASSWORD = 'purnima2014'
 DEFAULT_FROM_EMAIL = 'no-reply@iqoptionexperts.com'
 
 
-
-
-
-DEFAULT_FROM_EMAIL = 'no-reply@iqoptionexperts.com'
 STATIC_ROOT = os.path.join(BASE_DIR, "collected_static")
-# DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'trading',
-#             'USER': 'postgres',
-#             'PASSWORD': '123',
-#             'HOST': 'localhost',
-#             'PORT': '5432',
-#         }
-# }
+
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'trading',
+            'USER': 'trading',
+            'PASSWORD': 'geitpl@#$123',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+}
 
 
 INSTALLED_APPS += [

@@ -16,6 +16,8 @@
     {% endblock %}
 </head>
 
+
+
 <body>
     <div class="logo">
       <h4>
@@ -28,7 +30,7 @@
     {% include 'dashbord/includes/sidebar.html'%}   
 
     <div class="wrap">
-        {% include 'dashbord/includes/menu.html'%}.
+        {% include 'dashbord/includes/menu.html'%}
         <div class="content container">
             <h2 class="page-title">{% block page_title %}Dashboard <small>Statistics and more</small>{% endblock page_title %}</h2>
         
@@ -42,7 +44,6 @@
             <i class="fa fa-circle-o-notch fa-spin"></i>
         </div>
     </div>
-
 {% block JS %}
 <!-- common libraries. required for every page-->
 <script src="/static/dashbord/lib/jquery/dist/jquery.min.js"></script>
@@ -50,6 +51,13 @@
 <script src="/static/dashbord/lib/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
 <script src="/static/dashbord/lib/widgster/widgster.js"></script>
 <script type="text/javascript" src="/static/js/ws4redis.js"></script>
+<script src="/static/dashbord/lib/underscore/underscore.js"></script>
+
+<!-- common application js -->
+<script src="/static/dashbord/js/app.js"></script>
+<script src="/static/dashbord/js/settings.js"></script>
+
+
 
 
 <script type="text/javascript">
