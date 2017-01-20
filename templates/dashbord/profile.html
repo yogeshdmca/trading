@@ -86,32 +86,24 @@
 
                             <fieldset>
                                 <legend class="section">
-                                    Our Partner Broker's Account ID & Balance. <a target="_blank" href="{% url 'accounts-need-help'%}">Need Help?</a>
+                                    Binary.Com Account verification !! <a target="_blank" href="{% url 'accounts-need-help'%}">Need Help?</a>
                                 </legend>
 
                                 <div class="form-group">
-                                    <label for="balance" class="control-label col-sm-4">Broker Account Id <span class="required">*</span></label>
-                                    <div class="col-xs-12 col-sm-6">
-                                    {{profile.account_id|add_class:"form-control input-transparent mask"|attr:"required:required"}}
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="balance" class="control-label col-sm-4">AMOUNT <span class="required">*</span></label>
-                                    <div class="col-xs-12 col-sm-6">
-                                    {{profile.balance|add_class:"form-control input-transparent mask"|attr:"required:required"}}
-                                    </div>
+                                    <label for="balance" class="control-label col-sm-10">By pressing save button you will redirected to binary.com for account verification.<span class="required">*</span></label>
+                                    
                                 </div>
                             </fieldset>
                             <div class="form-actions">
                                 <div class="row">
                                     <div class="col-sm-8 col-sm-offset-4">
-                                        <button type="submit" class="btn btn-primary">Validate &amp; Submit</button>
+                                        <button type="submit" class="btn btn-primary">Save &amp; Redirect me</button>
                                         <button type="button" class="btn btn-default">Cancel</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
+
                         {% comment %}
                         <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                         <input type="hidden" name="cmd" value="_s-xclick">

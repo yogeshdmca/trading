@@ -35,6 +35,7 @@ EXPIRE_IN = (
 class Currency(models.Model):
     """docstring for ClassName"""
     name = models.CharField("Currency Name", max_length=200)
+    pair_name = models.CharField("Currency Name", max_length=200,null=True, blank=True)
 
     def __str__(self):
         return self.name

@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 from django.views import View
+from django.conf import settings
 from .forms import *
 from trade.models import Signal
 from datetime import datetime
@@ -50,15 +51,18 @@ class UserProfile(LoginRequiredMixin,View):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
-            return HttpResponseRedirect(reverse('accounts-dashbord'))
+            return HttpResponseRedirect(reverse('accounts-authorize'))
         else:
             return render(request, self.template_name,{'user_form':user_form, 'profile':profile_form})
    
 
 
+class UserAuthorize(LoginRequiredMixin,View):
+    template_name = "dashbord/login_by_binary.html"
+    def get(self, request):
+        APP_ID = settings.APP_ID
+        return render(request, self.template_name,{'APP_ID':APP_ID})
 
-# class UserProfile(TemplateView):
-#     template_name = "dashbord/profile.html"
 
 class UserDashbord(LoginRequiredMixin,View):
     template_name = "dashbord/dashbord.html"
@@ -71,6 +75,24 @@ class UserDashbord(LoginRequiredMixin,View):
 
         return render(request, self.template_name,{'active_singal':active_singal,'signals':signals })
 
+class UserBimaryData(LoginRequiredMixin,View):
+    def get(self, request):
+        url = request.path
+        profile = request.user.profile
+        try:
+            profile.account_id = request.GET.get('acct1','')
+            profile.token = request.GET.get('token1','')
+            profile.account_id2 = request.GET.get('acct2','')
+            profile.token2 = request.GET.get('token2','')
+            profile.save()
+        except:
+            from urlparse import urlparse, parse_qs
+            data_dict = parse_qs(urlparse(url).query)
+            profile.account_id = data_dict.get('acct1','')
+            profile.token = data_dict.get('token1','')
+            profile.account_id2 = data_dict.get('acct2','')
+            profile.token2 = data_dict.get('token2','')
+        return HttpResponseRedirect(reverse('accounts-dashbord'))
 
 class SignalListing(LoginRequiredMixin,View):
     template_name = "dashbord/signal_listing.html"
