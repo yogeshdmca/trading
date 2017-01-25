@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="alert alert-success">
+            <p><strong>
+                <i class="fa fa-check fa-dcustom"></i>
+                 Bid cost of the day
+                </strong> 
+                <span id="bid_amount"><i class="fa fa-check fa-usd"></i>{{user.profile.bid_amount}}
+                </span>
+            </p>
+
+            <strong>
+                <i class="fa fa-check fa-dcustom"></i> 
+                Target of the day
+            </strong>
+            <span id="bid_amount"><i class="fa fa-check fa-usd"></i>{{user.profile.get_target_of_the_day}}</span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-success">
+            <p><strong><i class="fa fa-check fa-dcustom"></i> 
+                Available Account balance:
+                </strong>
+                <span id="bid_amount"> <i class="fa fa-check fa-usd"></i>{{user.profile.balance}}
+                </span>
+            </p>
+            <strong>
+                <i class="fa fa-check fa-dcustom"></i> 
+                Boker ID:
+            </strong>
+
+            <span id="bid_amount"> {{user.profile.account_id}}
+            </span>
+        </div>
+    </div>
+
+</div>

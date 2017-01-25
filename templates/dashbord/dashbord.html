@@ -1,43 +1,37 @@
 {% extends "layout.html" %}
 {% load widget_tweaks %}
 
-{% block page_title %} LIVE SIGNALS {% endblock page_title %}
 
 {% block content %}
-    <div id="signals-acount">
-    {% include 'dashbord/includes/signal_dashbord.html'%}
+    {% include 'dashbord/shared/user_trading_account_details.html'%}
+    <div class="row">
+        <div class="col-md-4">
+            {% include 'dashbord/shared/active_signal_trade.html'%}
+        </div>
+        <div class="col-md-8">
+            {% include 'dashbord/shared/active_signals.html' %}
+        </div>
     </div>
+    {% comment %}
+    <div id="signals-acount">
+        {% include 'dashbord/includes/signal_dashbord.html'%}
+    </div>
+    {% endcomment %}
 {% endblock content %}
 
 
 {% block JS%}
 
 {{ block.super }}
-<script type="text/javascript" src="/static/timer/TimeCircles.js"></script>
-<link href="/static/timer/TimeCircles.css" rel="stylesheet">  
-
+<script type="text/javascript" src="/static/dashbord/js/jquery.plugin.min.js"></script> 
+<script type="text/javascript" src="/static/dashbord/js/jquery.countdown.min.js"></script>
+<script type="text/javascript" src="/static/dashbord/app.js"></script> 
+<script src="https://liveapi.binary.com/27.0.0/binary-live-api.js"></script>
 
 <script type="text/javascript">
-startCountdown()
-function startCountdown(){
-    $("#Countdown").TimeCircles({ time: { Days: { show: false }, Hours: { show: false } }});
-    $("#Countdown").TimeCircles().addListener(function(unit, value, total) {
-    if(total <= 2 && total >= -6){
-        expirSignal()
-       };
-    });
-    }
 
-function expirSignal(){
-    console.log("woking....")
-    $("#Countdown").TimeCircles().destroy();
+startCountdown({{active_singal.get_expire_time}})
 
-    var html = "<div class='alert alert-danger'>"+
-            "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'></button>"+
-            '<h3><i class="fa fa-bullhorn fa-dcustom"></i> Awaiting Signal...</h3>'+ 
-            '</div>'
-    $('#active-signal').html(html)
-}
 
 jQuery(document).ready(function($) {
     var ws4redis = WS4Redis({
@@ -45,31 +39,63 @@ jQuery(document).ready(function($) {
         receive_message: receiveMessage,
         heartbeat_msg: {{ WS4REDIS_HEARTBEAT }}
     });
-    
+
     function receiveMessage(msg) {
         $("#signals-acount").html(msg)
-        startCountdown()
+        var timer_value = $("#timer").data('val')
+        startCountdown(timer_value)
         console.log('Message from Websocket: ' + msg);
     }
 });
+
 </script>
+
+{% if user.profile.get_account_balance %}
+{% endif %}
 
 <script type="text/javascript">
+    var LiveApi = window['binary-live-api'].LiveApi;
+    console.log(window['binary-live-api']);
+    var api = new LiveApi();
+    const token = '{{user.profile.token2}}';
+    api.authorize(token).then(response =>{
+        /*need to write ajax call here for update balance at every day.*/
+    });
 
-function callSignal(){
-    $.ajax({
-        url: "{% url 'latest_signal-ajax' %}",
-        success: function(result){
-            $("#signals-acount").html(result)
-            //console.log(result)
-        }
-});
+$(document).on("click", "#trade-now",function(){
+    bid_amount = $("#bid_amount").text()
+    contract_type = $("#direction").data('val')
+    get_Proposal(bid_amount,contract_type)
+})
 
+
+
+function get_Proposal(bid_amount,contract_type){
+    //api.unsubscribeFromAllProposalsOpenContract()
+    var responce  = api.getPriceProposalForContract({
+          "proposal": 1,
+          "amount": 2,
+          "basis": "payout",
+          "contract_type": contract_type,
+          "currency": "USD",
+          "duration": "120",
+          "duration_unit": "s",
+          "symbol": "frxEURUSD"
+        }).then(response =>{
+         buyContract(response.proposal.id,response.proposal.payout)
+     });
 }
+
+function buyContract(ID,amount){
+    
+    api.buyContract(ID,amount).then(response =>{
+            console.log(response)
+    });
+}
+
+
+
+
 </script>
-
-
-
-
 
 {% endblock %}
