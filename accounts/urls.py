@@ -2,7 +2,13 @@
 
 from django.conf.urls import url, include
 
-from .views import UserProfile,UserDashbord,UserBimaryData, check_profile,SignalListing,latest_signal_ajax, AccountBinaryHelp, UserAuthorize
+from .views import (UserProfile,UserDashbord,UserBimaryData, 
+                      check_profile,SignalListing, 
+                      AccountBinaryHelp, UserAuthorize,
+                      )
+
+from .ajax import *
+
 
 urlpatterns = [
     url(r'^accounts/profile/$', check_profile, name='accounts-profile'),
@@ -12,12 +18,14 @@ urlpatterns = [
     url(r'^accounts/dashbord/$', UserDashbord.as_view(), name='accounts-dashbord'),
     url(r'^accounts/binary_responce/', UserBimaryData.as_view(), name='accounts-binary-responce'),
     
+    
     url(r'^accounts/signals/$', SignalListing.as_view(), name='accounts-signal-listing'),
     url(r'^accounts/binary/help/$', AccountBinaryHelp.as_view(), name='accounts-need-help'),
 ]
 
 urlpatterns += [
-    url(r'^accounts/signal-ajax/$', latest_signal_ajax, name='latest_signal-ajax'),
+    url(r'^accounts/update/binary_balance/', update_binary_balance, name='update-binary-balance'),
     
 ]
+
 

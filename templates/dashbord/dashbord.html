@@ -11,7 +11,10 @@
         <div class="col-md-8">
             {% include 'dashbord/shared/active_signals.html' %}
         </div>
+        {% include 'dashbord/shared/expired_trades.html' %}
     </div>
+            
+    
     {% comment %}
     <div id="signals-acount">
         {% include 'dashbord/includes/signal_dashbord.html'%}
@@ -25,15 +28,34 @@
 {{ block.super }}
 <script type="text/javascript" src="/static/dashbord/js/jquery.plugin.min.js"></script> 
 <script type="text/javascript" src="/static/dashbord/js/jquery.countdown.min.js"></script>
+<script src="/static/dashbord/lib/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/static/dashbord/app.js"></script> 
+
 <script src="https://liveapi.binary.com/27.0.0/binary-live-api.js"></script>
 
 <script type="text/javascript">
+var api;
+var currency_pair=[]
+var LiveApi = window['binary-live-api'].LiveApi;
+var api = new LiveApi();
+const token = '{{user.profile.token2}}';
+api.authorize(token).then(response =>{
+    {% if user.profile.get_account_balance %}
+        console.log(response)
+        balance = response.authorize.balance
+        currency = response.authorize.currency
+        email = response.authorize.email
+        url = "{% url 'update-binary-balance' %}"
+        updateBalance(balance,currency,url)
+    {% endif %}
+    onPageLoad()
+});
 
-startCountdown({{active_singal.get_expire_time}})
+
+/*startCountdown({{active_singal.get_expire_time}})*/
 
 
-jQuery(document).ready(function($) {
+/*jQuery(document).ready(function($) {
     var ws4redis = WS4Redis({
         uri: '{{ WEBSOCKET_URI }}active_signal?subscribe-broadcast&publish-broadcast&echo',
         receive_message: receiveMessage,
@@ -46,21 +68,12 @@ jQuery(document).ready(function($) {
         startCountdown(timer_value)
         console.log('Message from Websocket: ' + msg);
     }
-});
+});*/
 
 </script>
 
-{% if user.profile.get_account_balance %}
-{% endif %}
 
 <script type="text/javascript">
-    var LiveApi = window['binary-live-api'].LiveApi;
-    console.log(window['binary-live-api']);
-    var api = new LiveApi();
-    const token = '{{user.profile.token2}}';
-    api.authorize(token).then(response =>{
-        /*need to write ajax call here for update balance at every day.*/
-    });
 
 $(document).on("click", "#trade-now",function(){
     bid_amount = $("#bid_amount").text()

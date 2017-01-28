@@ -19,6 +19,7 @@ def check_profile(request):
         profile = user.profile
         if profile.balance > 0:
             return HttpResponseRedirect(reverse('accounts-dashbord'))
+        return HttpResponseRedirect(reverse('accounts-settings'))
     except:
         return HttpResponseRedirect(reverse('accounts-settings'))
 
@@ -79,6 +80,7 @@ class UserBimaryData(LoginRequiredMixin,View):
     def get(self, request):
         url = request.path
         profile = request.user.profile
+        import pdb;pdb.set_trace()
         try:
             profile.account_id = request.GET.get('acct1','')
             profile.token = request.GET.get('token1','')
