@@ -56,6 +56,19 @@ class ExpireIN(models.Model):
             return int(self.time)
         else:
             return int(self.time*60)
+
+    @property
+    def get_unit(self):
+        if self.unit == 'hours':
+            return 'h'
+        if self.unit == 'seconds':
+            return 's'
+        else:
+            return 'm'
+        
+    @property
+    def get_time(self):
+        return int(self.time)
         
 
 class Signal(models.Model):
@@ -114,10 +127,9 @@ from django.template.loader import render_to_string
 
 @receiver(post_save, sender=Signal, dispatch_uid="new_signal_created")
 def update_stock(sender, instance, **kwargs):
-        singals = type(instance).objects.filter(status='active')
         if instance.status!='active':
             instance = False
-        row =  render_to_string('dashbord/includes/signal_dashbord.html',{'active_singal':instance,'signals':singals })
+        row =  render_to_string('dashbord/shared/active_signal_trade.html',{'active_singal':instance})
         redis_publisher = RedisPublisher(facility='active_signal', broadcast=True)
         message = RedisMessage(row)
         redis_publisher.publish_message(message)

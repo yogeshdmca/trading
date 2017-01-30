@@ -1,7 +1,7 @@
 
-<div class="box" id="active-signal">
+<div class="box">
         {% if active_singal %}
-        <h2 class="text-center">{{active_singal.currency}}</h2>
+        <h2 class="text-center" id="currency_pair" data-pair="{{active_singal.currency.pair_name}}">{{active_singal.currency}}</h2>
         <p class="text-center" > 
             {% if active_singal.direction == 'up'%}
             <a class="btn btn-success btn-lg" id="direction" data-val="CALL">
@@ -13,7 +13,7 @@
             </a>
             {% endif %}
         </p>
-        <p class="text-center lead"><em>Expiry</em> {{active_singal.expire_in}} </p>
+        <p class="text-center lead" id="expire_in" data-duration="{{active_singal.expire_in.get_time}}" data-unit="{{active_singal.expire_in.get_unit}}"><em>Expiry</em> {{active_singal.expire_in}} </p>
 
         <p class="text-center"> 
         <button type="button" id="trade-now" class="btn btn-primary">Trade Now</button>

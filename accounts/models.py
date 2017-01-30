@@ -9,7 +9,7 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     balance =  models.FloatField("Account  Balance",default=0.0)
     currency = models.CharField("Currency",max_length=200,null=True, blank=True)
-    balance_updated_at = models.DateTimeField(auto_now=True)
+    balance_updated_at = models.DateTimeField(null=True, blank=True)
     phone =  models.CharField("Phone",max_length=12,null=True, blank=True)
     alternet_email = models.CharField("Alternet Email ",max_length=100,null=True, blank=True)
     account_id = models.CharField("Broker Real account Id ",max_length=200,null=True, blank=True)
@@ -27,7 +27,7 @@ class Profile(models.Model):
     @property
     def bid_amount(self):
         try:
-            return (self.balance*5)/100
+            return int((self.balance*5)/100)
         except Exception, e:
             return 0.0
 
@@ -37,6 +37,13 @@ class Profile(models.Model):
         if self.balance_updated_at > datetime.now()-timedelta(days=1):
             return True
         return False
+
+    @property
+    def is_verified(self):
+        if self.account_id  and self.token :
+            return True
+        else:
+            return False
     
 
 # @receiver(post_save, sender=User)

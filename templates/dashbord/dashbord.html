@@ -3,9 +3,10 @@
 
 
 {% block content %}
+    {% if user.profile and user.profile.is_verified %}
     {% include 'dashbord/shared/user_trading_account_details.html'%}
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" id="active-signal">
             {% include 'dashbord/shared/active_signal_trade.html'%}
         </div>
         <div class="col-md-8">
@@ -13,13 +14,9 @@
         </div>
         {% include 'dashbord/shared/expired_trades.html' %}
     </div>
-            
-    
-    {% comment %}
-    <div id="signals-acount">
-        {% include 'dashbord/includes/signal_dashbord.html'%}
-    </div>
-    {% endcomment %}
+    {% else %}
+        {% include 'dashbord/shared/profile_verification_binary.html' %}
+    {% endif %}
 {% endblock content %}
 
 
@@ -30,8 +27,9 @@
 <script type="text/javascript" src="/static/dashbord/js/jquery.countdown.min.js"></script>
 <script src="/static/dashbord/lib/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/static/dashbord/app.js"></script> 
-
 <script src="https://liveapi.binary.com/27.0.0/binary-live-api.js"></script>
+
+{% if user.profile and user.profile.is_verified %}
 
 <script type="text/javascript">
 var api;
@@ -40,22 +38,20 @@ var LiveApi = window['binary-live-api'].LiveApi;
 var api = new LiveApi();
 const token = '{{user.profile.token2}}';
 api.authorize(token).then(response =>{
-    {% if user.profile.get_account_balance %}
-        console.log(response)
-        balance = response.authorize.balance
-        currency = response.authorize.currency
-        email = response.authorize.email
-        url = "{% url 'update-binary-balance' %}"
-        updateBalance(balance,currency,url)
-    {% endif %}
+    balance = response.authorize.balance
+    currency = response.authorize.currency
+    email = response.authorize.email
+    url = "{% url 'update-binary-balance' %}"
+    updateBalance(balance,currency,url)
     onPageLoad()
 });
 
 
-/*startCountdown({{active_singal.get_expire_time}})*/
 
 
-/*jQuery(document).ready(function($) {
+
+
+jQuery(document).ready(function($) {
     var ws4redis = WS4Redis({
         uri: '{{ WEBSOCKET_URI }}active_signal?subscribe-broadcast&publish-broadcast&echo',
         receive_message: receiveMessage,
@@ -63,12 +59,13 @@ api.authorize(token).then(response =>{
     });
 
     function receiveMessage(msg) {
-        $("#signals-acount").html(msg)
+        $("#active-signal").html(msg)
         var timer_value = $("#timer").data('val')
         startCountdown(timer_value)
         console.log('Message from Websocket: ' + msg);
     }
-});*/
+    startCountdown({{active_singal.get_expire_time}})
+});
 
 </script>
 
@@ -76,24 +73,28 @@ api.authorize(token).then(response =>{
 <script type="text/javascript">
 
 $(document).on("click", "#trade-now",function(){
-    bid_amount = $("#bid_amount").text()
-    contract_type = $("#direction").data('val')
-    get_Proposal(bid_amount,contract_type)
+    var currency_pair = $("#currency_pair").data("pair")
+    var bid_amount = $("#bid_amount").data('amount')
+    var currency = $("#bid_amount").data('currency')
+    var contract_type = $("#direction").data('val')
+    var duration = $("#expire_in").data('duration')
+    var unit = $("#expire_in").data('unit')
+    get_Proposal(currency_pair,bid_amount,contract_type,currency,duration,unit)
 })
 
 
 
-function get_Proposal(bid_amount,contract_type){
+function get_Proposal(currency_pair,bid_amount,contract_type, currency,duration,unit){
     //api.unsubscribeFromAllProposalsOpenContract()
     var responce  = api.getPriceProposalForContract({
           "proposal": 1,
-          "amount": 2,
+          "amount": bid_amount,
           "basis": "payout",
           "contract_type": contract_type,
-          "currency": "USD",
-          "duration": "120",
-          "duration_unit": "s",
-          "symbol": "frxEURUSD"
+          "currency": currency,
+          "duration": duration,
+          "duration_unit": unit,
+          "symbol": currency_pair
         }).then(response =>{
          buyContract(response.proposal.id,response.proposal.payout)
      });
@@ -102,13 +103,10 @@ function get_Proposal(bid_amount,contract_type){
 function buyContract(ID,amount){
     
     api.buyContract(ID,amount).then(response =>{
-            console.log(response)
+        activeTrade()
     });
 }
-
-
-
-
 </script>
+{% endif %}
 
 {% endblock %}
