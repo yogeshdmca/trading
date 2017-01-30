@@ -26,6 +26,8 @@
 <script type="text/javascript" src="/static/dashbord/js/jquery.plugin.min.js"></script> 
 <script type="text/javascript" src="/static/dashbord/js/jquery.countdown.min.js"></script>
 <script src="/static/dashbord/lib/datatables/media/js/jquery.dataTables.min.js"></script>
+        <script src="/static/dashbord/lib/messenger/build/js/messenger.js"></script>
+        <script src="/static/dashbord/lib/messenger/build/js/messenger-theme-flat.js"></script>
 <script type="text/javascript" src="/static/dashbord/app.js"></script> 
 <script src="https://liveapi.binary.com/27.0.0/binary-live-api.js"></script>
 
@@ -85,7 +87,7 @@ $(document).on("click", "#trade-now",function(){
 
 
 function get_Proposal(currency_pair,bid_amount,contract_type, currency,duration,unit){
-    //api.unsubscribeFromAllProposalsOpenContract()
+    
     var responce  = api.getPriceProposalForContract({
           "proposal": 1,
           "amount": bid_amount,
@@ -104,6 +106,8 @@ function buyContract(ID,amount){
     
     api.buyContract(ID,amount).then(response =>{
         activeTrade()
+        Messenger({extraClasses:'messenger-fixed messenger-on-left messenger-on-top',theme: 'flat',hideAfter:5}).post("Trade Done, please check active trade section")
+        $("#trade-now").remove()
     });
 }
 </script>
