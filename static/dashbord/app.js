@@ -2,7 +2,7 @@
 $(document).on("click",'#authorize-binary', function(e){
     console.log(window['binary-live-api']);
     const { oauthUrl, parseOAuthResponse } = window['binary-live-api'].OAuth;
-    const url = oauthUrl('2569');
+    const url = oauthUrl('2557');
     window.location = url;
 
 })

@@ -201,4 +201,4 @@ WS4REDIS_PREFIX = 'ws'
 WSGI_APPLICATION = 'ws4redis.django_runserver.application'
 WS4REDIS_EXPIRE = 1
 
-APP_ID = 2569
+APP_ID = 2557
