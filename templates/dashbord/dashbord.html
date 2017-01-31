@@ -17,6 +17,8 @@
     {% else %}
         {% include 'dashbord/shared/profile_verification_binary.html' %}
     {% endif %}
+
+    {% include 'dashbord/shared/model_auto_trade.html' %}
 {% endblock content %}
 
 
@@ -28,109 +30,104 @@
 <script src="/static/dashbord/lib/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="/static/dashbord/lib/messenger/build/js/messenger.js"></script>
 <script src="/static/dashbord/lib/messenger/build/js/messenger-theme-flat.js"></script>
-<script src="/static/dashbord/lib/switchery/dist/switchery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script type="text/javascript" src="/static/dashbord/app.js"></script> 
 <script src="https://liveapi.binary.com/27.0.0/binary-live-api.js"></script>
 
+
 {% if user.profile and user.profile.is_verified %}
 
-<script type="text/javascript">
-/*new Switchery(document.getElementById("checkbox-ios1"))*/
+    <script type="text/javascript">
 
-var elem = document.querySelector('.js-switch');
-var switchery = new Switchery(elem,{ color: '#faab43', secondaryColor: '#fC73d0', jackColor: '#fcf45e', jackSecondaryColor: '#c8ff77' });
+    var api;
+    var currency_pair=[]
+    var LiveApi = window['binary-live-api'].LiveApi;
+    var api = new LiveApi();
+    const token = '{{user.profile.token}}';
+    api.authorize(token).then(response =>{
+        autotradeStatus()
+        onPageLoad()
 
-    var changeCheckbox = document.querySelector('.js-check-change');
+    });
+    
+    jQuery(document).ready(function($) {
+        var ws4redis = WS4Redis({
+            uri: '{{ WEBSOCKET_URI }}active_signal?subscribe-broadcast&publish-broadcast&echo',
+            receive_message: receiveMessage,
+            heartbeat_msg: {{ WS4REDIS_HEARTBEAT }}
+        });
 
-    changeCheckbox.onchange = function() {
-        console.log(changeCheckbox.checked)
-    };
-
-{% if user.profile.is_auto_trade_active %}
-    //switchery.enable();
-{% else %}
-    //.disable();
-    //switchery.enable();
-{% endif %}
-
-
-var api;
-var currency_pair=[]
-var LiveApi = window['binary-live-api'].LiveApi;
-var api = new LiveApi();
-const token = '{{user.profile.token}}';
-api.authorize(token).then(response =>{
-    //balance = response.authorize.balance
-    //currency = response.authorize.currency
-    //email = response.authorize.email
-    //url = "{% url 'update-binary-balance' %}"
-    //updateBalance(balance,currency,url)
-    onPageLoad()
-});
-
-
-
-
-
-
-jQuery(document).ready(function($) {
-    var ws4redis = WS4Redis({
-        uri: '{{ WEBSOCKET_URI }}active_signal?subscribe-broadcast&publish-broadcast&echo',
-        receive_message: receiveMessage,
-        heartbeat_msg: {{ WS4REDIS_HEARTBEAT }}
+        function receiveMessage(msg) {
+            $("#active-signal").html(msg)
+            var timer_value = $("#timer").data('val')
+            startCountdown(timer_value)
+            autotradeStatus()
+        }
+        startCountdown({{active_singal.get_expire_time}})
     });
 
-    function receiveMessage(msg) {
-        $("#active-signal").html(msg)
-        var timer_value = $("#timer").data('val')
-        startCountdown(timer_value)
-        console.log('Message from Websocket: ' + msg);
+    </script>
+
+
+    <script type="text/javascript">
+    /* trading related events */
+    $(document).on("click", "#trade-now",function(){
+        var currency_pair = $("#currency_pair").data("pair")
+        var bid_amount = $("#bid_amount").data('amount')
+        var currency = $("#bid_amount").data('currency')
+        var contract_type = $("#direction").data('val')
+        var duration = $("#expire_in").data('duration')
+        var unit = $("#expire_in").data('unit')
+        get_Proposal(currency_pair,bid_amount,contract_type,currency,duration,unit)
+    })
+
+
+
+    function get_Proposal(currency_pair,bid_amount,contract_type, currency,duration,unit){
+        
+        var responce  = api.getPriceProposalForContract({
+              "proposal": 1,
+              "amount": bid_amount,
+              "basis": "payout",
+              "contract_type": contract_type,
+              "currency": currency,
+              "duration": duration,
+              "duration_unit": unit,
+              "symbol": currency_pair
+            }).then(response =>{
+             buyContract(response.proposal.id,response.proposal.payout)
+         });
     }
-    startCountdown({{active_singal.get_expire_time}})
-});
 
-</script>
-
-
-<script type="text/javascript">
-
-$(document).on("click", "#trade-now",function(){
-    var currency_pair = $("#currency_pair").data("pair")
-    var bid_amount = $("#bid_amount").data('amount')
-    var currency = $("#bid_amount").data('currency')
-    var contract_type = $("#direction").data('val')
-    var duration = $("#expire_in").data('duration')
-    var unit = $("#expire_in").data('unit')
-    get_Proposal(currency_pair,bid_amount,contract_type,currency,duration,unit)
-})
+    function buyContract(ID,amount){
+        
+        api.buyContract(ID,amount).then(response =>{
+            activeTrade()
+            Messenger({extraClasses:'messenger-fixed messenger-on-left messenger-on-top',theme: 'flat',hideAfter:5}).post("Trade Done, please check active trade section")
+            $("#trade-now").remove()
+        });
+    }
+    </script>
 
 
+    <script type="text/javascript">
+        /*Auto Trading related events */
+        function autotradeStatus(){
+            {% if user.profile.is_auto_trade_active %}
+                $("#autotrade").prop('checked',true);
+            {% else %}
+                $("#autotrade").prop('checked',false);
+            {% endif %}    
+        }
 
-function get_Proposal(currency_pair,bid_amount,contract_type, currency,duration,unit){
-    
-    var responce  = api.getPriceProposalForContract({
-          "proposal": 1,
-          "amount": bid_amount,
-          "basis": "payout",
-          "contract_type": contract_type,
-          "currency": currency,
-          "duration": duration,
-          "duration_unit": unit,
-          "symbol": currency_pair
-        }).then(response =>{
-         buyContract(response.proposal.id,response.proposal.payout)
-     });
-}
+        $(document).on("click","#save-auto-trade", function(){
+            var value = $('#autotrade').is(':checked')
+            var url = $(this).data('url')
+            changeAutoTrade(url,value)
+        })
 
-function buyContract(ID,amount){
-    
-    api.buyContract(ID,amount).then(response =>{
-        activeTrade()
-        Messenger({extraClasses:'messenger-fixed messenger-on-left messenger-on-top',theme: 'flat',hideAfter:5}).post("Trade Done, please check active trade section")
-        $("#trade-now").remove()
-    });
-}
-</script>
+    </script>
 {% endif %}
 
 {% endblock %}

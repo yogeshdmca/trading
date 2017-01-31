@@ -21,10 +21,10 @@ class Profile(models.Model):
         return "%s %s"%(self.user.email, self.user)
 
     def is_auto_trade_active(self):
-        last = self.auto_trades.last()
-        if last:
-            return last.active
-        return False
+        try:
+            return self.auto_trades.active
+        except:
+            return False
 
     @property
     def get_target_of_the_day(self):

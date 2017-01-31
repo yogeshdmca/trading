@@ -16,6 +16,15 @@ admin.site.register(ExpireIN)
 
 admin.site.register(UserBalanceInfo)
 
+admin.site.register(AutoTrade)
+
+admin.site.register(AutoTradeHistory)
+admin.site.register(ErrorLog)
+
+
+
+
+
 
 
 

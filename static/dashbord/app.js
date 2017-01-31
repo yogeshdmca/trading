@@ -92,10 +92,47 @@ function tickStream(currency) {
     openContract()
  }
 
-/* getProfitTable(){
-    option = {
-      "profit_table": 2,
-      "description":1,
-      "limit":10
+$('#modelautotrade').on('hidden.bs.modal', function () {
+    $("#autotrade").prop('checked',false);
+})
+
+$(document).on("click", "#autotrade", function(event){
+    if ($('#autotrade').is(':checked')){
+        $('#modelautotrade').modal({keyboard: false})
+    }else{
+        bootbox.confirm({
+                message: "Are you realy want to delete auto trading?",
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result){
+                        var url = $("#save-auto-trade").data('url')
+                        var value = 'false'
+                        changeAutoTrade(url,value)
+                    }
+                }
+            });
     }
- }*/
+    
+})
+
+function changeAutoTrade(url,value){
+    $.ajax({
+        url: url,
+        'data':{'value':value},
+        'type':'POST',
+        success: function(result){
+           if (result.status=='true'){
+                window.location.reload()
+           }
+        }
+});
+}

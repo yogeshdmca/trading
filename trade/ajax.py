@@ -9,11 +9,16 @@ from .models import AutoTrade
 
 @csrf_exempt
 def subscribe_autotrade(request):
-    last_trade = request.user.profile.auto_trades.all()
-    if not last_trade :
-        AutoTrade.objects.create(profile = request.user.profile, active=True)
-    if last_trade.active is True:
-         AutoTrade.objects.create(profile = request.user.profile, active=False)
-    if last_trade.active is False:
-        AutoTrade.objects.create(profile = request.user.profile, active=True)
+    in_auto_trade = AutoTrade.objects.filter(profile=request.user.profile).last()
+    if request.POST.get('value',False)=='true':
+        if in_auto_trade:
+            in_auto_trade.active=True
+            in_auto_trade.save()
+        else:
+            AutoTrade.objects.create(profile = request.user.profile, active=True)
+    else:
+        if in_auto_trade:
+            in_auto_trade.active=False
+            in_auto_trade.save()
+
     return HttpResponse(json.dumps({'status':'true'}),status=201,content_type="application/json")

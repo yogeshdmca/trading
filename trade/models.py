@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.db import models
 from django.conf import settings
 from accounts.models import Profile
+from utils import trade_now
 
 STATUS_CHOICES = (
         ('draft', 'Draft'),
@@ -85,6 +86,13 @@ class Signal(models.Model):
 
     def __str__(self):
         return "%s %s %s %s"%(self.currency,self.expire_in,self.direction,self.status)
+    
+    @property
+    def get_contract_type(self):
+        if self.direction == 'up':
+            return 'CALL'
+        if self.direction == 'down':
+            return 'PUT'
 
     @property
     def is_visible(self):
@@ -100,19 +108,30 @@ class Signal(models.Model):
 
 class AutoTrade(models.Model):
     """docstring for ClassName"""
-    profile = models.ForeignKey(Profile,related_name = 'auto_trades')
+
+    profile = models.OneToOneField(Profile, related_name='auto_trades')
     active = models.BooleanField(default=False)
     updated_at = models.DateField(auto_now=True)
 
     def __str__(self):
-        return "%s %s"%(self.profile, self.amount)
+        return "%s %s"%(self.profile, self.active)
 
-    @property
-    def previous_balance(self):
-        previous_entry = type(self).objects.filter(profile = self.profile)
-        if len(previous_entry)>1 :
-            return (previous_entry[1], previous_entry.first.amount-previous_entry.first.amount)
-        return (0.0, 0.0)
+class AutoTradeHistory(models.Model):
+    profile = models.ForeignKey(Profile, related_name="auto_trade_histories")
+    signal = models.ForeignKey(Signal, related_name='auto_trade_histories')
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+    payout = models.CharField("Payout", max_length=100)
+    payout = models.CharField("Payout", max_length=100)
+    contract_id = models.CharField("contract_id", max_length=500)
+    longcode = models.CharField("longcode", max_length=5000)
+    buy_price = models.CharField("buy_price", max_length=100)
+    balance_after = models.CharField("balance_after", max_length=100)
+    shortcode = models.CharField("shortcode", max_length=100)
+    transaction_id = models.CharField("transaction_id", max_length=100)
+    purchase_time = models.CharField("purchase_time", max_length=100)
+    start_time = models.CharField("start_time", max_length=100)
+
 
 
 class UserBalanceInfo(models.Model):
@@ -128,7 +147,7 @@ class UserBalanceInfo(models.Model):
     def previous_balance(self):
         previous_entry = type(self).objects.filter(profile = self.profile)
         if len(previous_entry)>1 :
-            return (previous_entry[1], previous_entry.first.amount-previous_entry.first.amount)
+            return (previous_entry[1].amount, previous_entry.last().amount-previous_entry.first().amount)
         return (0.0, 0.0)
 
 
@@ -151,6 +170,11 @@ class Transaction(models.Model):
     type = models.CharField("Transaction Type",max_length=50, choices=TRANSACTION_TYPE)
 
 
+class ErrorLog(models.Model):
+    user = models.ForeignKey(Profile, related_name='transaction')
+    error = models.TextField("Error Type")
+    log = models.TextField("Error Log")
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -167,3 +191,12 @@ def update_stock(sender, instance, **kwargs):
         redis_publisher = RedisPublisher(facility='active_signal', broadcast=True)
         message = RedisMessage(row)
         redis_publisher.publish_message(message)
+        auto_trade_users = AutoTrade.objects.filter(active=True)
+
+        if instance:
+            for auto in auto_trade_users:
+                data = trade_now(auto.profile, instance)
+                if data:
+                    AutoTradeHistory.objects.create(profile=auto.profile, signal=instance, **data)
+
+
