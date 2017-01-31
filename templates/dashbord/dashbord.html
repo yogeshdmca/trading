@@ -38,7 +38,7 @@ var api;
 var currency_pair=[]
 var LiveApi = window['binary-live-api'].LiveApi;
 var api = new LiveApi();
-const token = '{{user.profile.token2}}';
+const token = '{{user.profile.token}}';
 api.authorize(token).then(response =>{
     balance = response.authorize.balance
     currency = response.authorize.currency

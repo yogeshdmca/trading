@@ -80,7 +80,6 @@ class UserBimaryData(LoginRequiredMixin,View):
     def get(self, request):
         url = request.path
         profile = request.user.profile
-        import pdb;pdb.set_trace()
         try:
             profile.account_id = request.GET.get('acct1','')
             profile.token = request.GET.get('token1','')
