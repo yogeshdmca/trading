@@ -11,6 +11,17 @@
         <li>
             <a href="{% url 'accounts-signal-listing' %}"><i class="fa fa-line-chart fa-dcustom"></i> <span class="name">HISTORY</span></a>
         </li>
+        {% if user.is_authenticated and user.is_superuser %}
+            <li class="panel ">
+                <a class="accordion-toggle collapsed" data-toggle="collapse"
+                   data-parent="#side-nav" href="#stats-collapse"><i class="fa fa-area-chart"></i> <span class="name">Admin Area</span></a>
+                <ul id="stats-collapse" class="panel-collapse collapse ">
+                    <li class=""><a href="{% url 'accounts-balance-report' %}">Update User Balance</a></li>
+                    <li class=""><a href="">Charts</a></li>
+                    <li class=""><a href="">Realtime</a></li>
+                </ul>
+            </li>
+        {% endif %}
 
         <li>
             <a href="{%url 'faq'%}"><i class="fa fa-envelope fa-dcustom"></i> <span class="name">FAQ</span></a>

@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^', include('pages.urls')),
     url(r'^', include('accounts.urls')),
+    url(r'^', include('trade.urls')),
 ]

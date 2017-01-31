@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'q9+1cli039zfw564d*=aw=8+&dfvux8(+=+45v$z&tn85&v7b@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -180,16 +180,16 @@ DEFAULT_FROM_EMAIL = 'no-reply@iqoptionexperts.com'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "collected_static")
 
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'trading',
-            'USER': 'trading',
-            'PASSWORD': 'geitpl@#$123',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-}
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'trading',
+#             'USER': 'trading',
+#             'PASSWORD': 'geitpl@#$123',
+#             'HOST': 'localhost',
+#             'PORT': '5432',
+#         }
+# }
 
 
 INSTALLED_APPS += [

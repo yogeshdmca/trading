@@ -26,25 +26,45 @@
 <script type="text/javascript" src="/static/dashbord/js/jquery.plugin.min.js"></script> 
 <script type="text/javascript" src="/static/dashbord/js/jquery.countdown.min.js"></script>
 <script src="/static/dashbord/lib/datatables/media/js/jquery.dataTables.min.js"></script>
-        <script src="/static/dashbord/lib/messenger/build/js/messenger.js"></script>
-        <script src="/static/dashbord/lib/messenger/build/js/messenger-theme-flat.js"></script>
+<script src="/static/dashbord/lib/messenger/build/js/messenger.js"></script>
+<script src="/static/dashbord/lib/messenger/build/js/messenger-theme-flat.js"></script>
+<script src="/static/dashbord/lib/switchery/dist/switchery.min.js"></script>
 <script type="text/javascript" src="/static/dashbord/app.js"></script> 
 <script src="https://liveapi.binary.com/27.0.0/binary-live-api.js"></script>
 
 {% if user.profile and user.profile.is_verified %}
 
 <script type="text/javascript">
+/*new Switchery(document.getElementById("checkbox-ios1"))*/
+
+var elem = document.querySelector('.js-switch');
+var switchery = new Switchery(elem,{ color: '#faab43', secondaryColor: '#fC73d0', jackColor: '#fcf45e', jackSecondaryColor: '#c8ff77' });
+
+    var changeCheckbox = document.querySelector('.js-check-change');
+
+    changeCheckbox.onchange = function() {
+        console.log(changeCheckbox.checked)
+    };
+
+{% if user.profile.is_auto_trade_active %}
+    //switchery.enable();
+{% else %}
+    //.disable();
+    //switchery.enable();
+{% endif %}
+
+
 var api;
 var currency_pair=[]
 var LiveApi = window['binary-live-api'].LiveApi;
 var api = new LiveApi();
-const token = '{{user.profile.token2}}';
+const token = '{{user.profile.token}}';
 api.authorize(token).then(response =>{
-    balance = response.authorize.balance
-    currency = response.authorize.currency
-    email = response.authorize.email
-    url = "{% url 'update-binary-balance' %}"
-    updateBalance(balance,currency,url)
+    //balance = response.authorize.balance
+    //currency = response.authorize.currency
+    //email = response.authorize.email
+    //url = "{% url 'update-binary-balance' %}"
+    //updateBalance(balance,currency,url)
     onPageLoad()
 });
 

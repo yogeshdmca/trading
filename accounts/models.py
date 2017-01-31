@@ -17,6 +17,15 @@ class Profile(models.Model):
     account_id2 = models.CharField("Broker virtual account Id ",max_length=200,null=True, blank=True)
     token2  = models.CharField("Broker virtual tocken",max_length=200,null=True, blank=True)
 
+    def __str__(self):
+        return "%s %s"%(self.user.email, self.user)
+
+    def is_auto_trade_active(self):
+        last = self.auto_trades.last()
+        if last:
+            return last.active
+        return False
+
     @property
     def get_target_of_the_day(self):
         try:

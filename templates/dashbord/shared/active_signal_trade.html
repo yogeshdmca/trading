@@ -21,12 +21,23 @@
         
         </p>
 
-        <div id="Countdown" data-timer="{{active_singal.get_expire_time}}" style="width: 400px; height: 80px; padding-left: 20%;text-align: center;"></div>
-
+        <div id="Countdown" data-timer="{{active_singal.get_expire_time}}" style="width: 400px;padding-left: 20%;text-align: center;"></div>
         {% else %}
             <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
                 <h3><i class="fa fa-bullhorn fa-dcustom"></i> Awaiting Signal...</h3>
             </div>
         {% endif %}
+
+        <p class="text-center"> 
+            <fieldset>
+                <legend class="section">
+                    SUBSCRIBE AUTO TRADING 
+                </legend>
+                <p>
+                    By subscribe autotrade, you going to give user access rights for trade on your binary.com account behalf of you , all the trade signals coming here are directly trade on binary.com.
+                </p>
+                OFF <input type="checkbox" class="js-switch js-check-change" /> ON
+            </fieldset>
+        </p>
 </div>

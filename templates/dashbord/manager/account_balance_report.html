@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% load widget_tweaks %}
+
+{% block page_title %}Update all users amount {% endblock page_title %}
+
+{% block content %}
+<div class="clearfix">
+    <div class="btn-toolbar">
+    <form method="POST" action=".">
+        <div class="btn-group">
+            {% csrf_token %}
+            <button  type="submit" class="btn btn-default">
+                RELOAD
+            </button>
+        </div>
+    </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <section class="widget">
+            <header>
+                <div class="widget-controls">
+                    <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                    <a data-widgster="close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </header>
+            <div class="widget-body">
+                <h3><span class="fw-semi-bold">Balance flow details</span></h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Previous day balance</th>
+                        <th>Total Profit</th>
+                        <th>Current Balance</th>
+                        <th>Last updated at </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for balance in object_list %}
+                    <tr>
+                        <td>{{balance.profile}}</td>
+                        {% with balance.previous_balance as previous_balance %}
+                            <td>{{previous_balance.0}}</td>
+                            <td>{{previous_balance.1}}</td>
+                        {% endwith %}
+                        <td>{{balance.amount}}</td>
+                        <td>
+                            <span class="label label-success">{{balance.updated_at}}</span> </td>
+                        <td>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <div class="text-align-center">
+            <ul class="pagination pagination-sm pagination-search-result">
+                <li class="disabled"><a href="#">Prev</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">Next</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

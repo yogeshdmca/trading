@@ -1,11 +1,14 @@
 
 
 from django.conf.urls import url, include
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import RedirectView
 
 from .views import (UserProfile,UserDashbord,UserBimaryData, 
                       check_profile,SignalListing, 
                       AccountBinaryHelp, UserAuthorize,
                       )
+
 
 from .ajax import *
 
@@ -15,7 +18,8 @@ urlpatterns = [
     url(r'^accounts/settings/$', UserProfile.as_view(), name='accounts-settings'),
     url(r'^accounts/authorize/$', UserAuthorize.as_view(), name='accounts-authorize'),
     
-    url(r'^accounts/dashbord/$', UserDashbord.as_view(), name='accounts-dashbord'),
+    url(r'^accounts/dashbord/$', RedirectView.as_view(url=reverse_lazy('accounts-dashbord'), permanent=True)),
+    url(r'^accounts/dashboard/$', UserDashbord.as_view(), name='accounts-dashbord'),
     url(r'^accounts/binary_responce/', UserBimaryData.as_view(), name='accounts-binary-responce'),
     
     

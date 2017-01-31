@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.db import models
 from django.conf import settings
+from accounts.models import Profile
 
 STATUS_CHOICES = (
         ('draft', 'Draft'),
@@ -96,6 +97,39 @@ class Signal(models.Model):
         time_ago = int((timezone.now()- self.created_at).total_seconds())
         return (self.expire_in.get_time_in_minuts/8.0)-time_ago
 
+
+class AutoTrade(models.Model):
+    """docstring for ClassName"""
+    profile = models.ForeignKey(Profile,related_name = 'auto_trades')
+    active = models.BooleanField(default=False)
+    updated_at = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return "%s %s"%(self.profile, self.amount)
+
+    @property
+    def previous_balance(self):
+        previous_entry = type(self).objects.filter(profile = self.profile)
+        if len(previous_entry)>1 :
+            return (previous_entry[1], previous_entry.first.amount-previous_entry.first.amount)
+        return (0.0, 0.0)
+
+
+class UserBalanceInfo(models.Model):
+    """docstring for ClassName"""
+    profile = models.ForeignKey(Profile,related_name = 'balances')
+    updated_at = models.DateField(auto_now=True)
+    amount = models.FloatField("Bid amount",default=0.0)
+
+    def __str__(self):
+        return "%s %s"%(self.profile, self.amount)
+
+    @property
+    def previous_balance(self):
+        previous_entry = type(self).objects.filter(profile = self.profile)
+        if len(previous_entry)>1 :
+            return (previous_entry[1], previous_entry.first.amount-previous_entry.first.amount)
+        return (0.0, 0.0)
 
 
 class SignalBid(models.Model):
