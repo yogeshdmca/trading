@@ -14,5 +14,8 @@ admin.site.register(Currency)
 
 admin.site.register(ExpireIN)
 
+admin.site.register(UserBalanceInfo)
+
+
 
 

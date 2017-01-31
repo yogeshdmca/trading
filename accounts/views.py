@@ -93,6 +93,11 @@ class UserBimaryData(LoginRequiredMixin,View):
             profile.token = data_dict.get('token1','')
             profile.account_id2 = data_dict.get('acct2','')
             profile.token2 = data_dict.get('token2','')
+        if profile.token:
+            from trade.utils import update_balance_by_socket
+            from trade.models import UserBalanceInfo
+            update_balance_by_socket(profile,UserBalanceInfo)
+            
         return HttpResponseRedirect(reverse('accounts-dashbord'))
 
 class SignalListing(LoginRequiredMixin,View):
@@ -109,7 +114,6 @@ def latest_signal_ajax(request):
     active_singal = Signal.objects.filter(status='active').last()
     if active_singal and not active_singal.is_visible:
         active_singal = False
-
     return render(request, 'dashbord/includes/signal_dashbord.html',{'active_singal':active_singal,'signals':signals })
 
 

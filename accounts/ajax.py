@@ -3,8 +3,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta
 from django.utils import timezone
-
-
 import json
 
 @csrf_exempt
