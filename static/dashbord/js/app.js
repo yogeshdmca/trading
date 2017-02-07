@@ -15,3 +15,147 @@ function closeNavigation() {
 function resetContentMargin() {
     $(window).width() > 767 && $(".content").css("margin-top", "")
 }
+
+
+function initAppPlugins() {
+    ! function(a) {
+        a(document).on("click", "table th [data-check-all]", function() {
+            a(this).closest("table").find("input[type=checkbox]").not(this).prop("checked", a(this).prop("checked"))
+        })
+    }(jQuery), ! function(a) {
+        a.fn.animateProgressBar = function() {
+            return this.each(function() {
+                var b = a(this).find(".progress-bar");
+                setTimeout(function() {
+                    b.css("width", b.data("width"))
+                }, 0)
+            })
+        }, a(".js-progress-animate").animateProgressBar()
+    }(jQuery)
+}
+
+function testData(a, b) {
+    var c = (new Date).getTime(),
+        d = 864e5,
+        e = 60,
+        f = e * d,
+        g = c - f,
+        b = b || 45,
+        h = e / b;
+    return stream_layers(a.length, b, .1).map(function(b, c) {
+        return {
+            key: a[c],
+            values: b.map(function(a, b) {
+                return {
+                    x: g + a.x * d * h,
+                    y: Math.floor(100 * a.y)
+                }
+            })
+        }
+    })
+}
+
+function stream_layers(a, b, c) {
+    function d(a) {
+        for (var c = 1 / (.1 + Math.random()), d = 2 * Math.random() - .5, e = 10 / (.1 + Math.random()), f = 0; b > f; f++) {
+            var g = (f / b - d) * e;
+            a[f] += c * Math.exp(-g * g)
+        }
+    }
+    return arguments.length < 3 && (c = 0), d3.range(a).map(function() {
+        var a, e = [];
+        for (a = 0; b > a; a++) e[a] = c + c * Math.random();
+        for (a = 0; 5 > a; a++) d(e);
+        return e.map(stream_index)
+    })
+}
+
+function stream_index(a, b) {
+    return {
+        x: b,
+        y: Math.max(0, a)
+    }
+}
+window.PJAX_ENABLED = !0, window.DEBUG = !1;
+var $lime = "#8CBF26",
+    $red = "#f25118",
+    $redDark = "#d04f4f",
+    $blue = "#4e91ce",
+    $green = "#3ecd74",
+    $orange = "#f2c34d",
+    $pink = "#E671B8",
+    $purple = "#A700AE",
+    $brown = "#A05000",
+    $teal = "#4ab0ce",
+    $gray = "#666",
+    $white = "#fff",
+    $textColor = $gray,
+    chartsOff = !1;
+chartsOff && (nv.addGraph = function() {}), COLOR_VALUES = [$red, $orange, $green, $blue, $teal, $redDark], window.colors = function() {
+    return window.d3 ? d3.scale.ordinal().range(COLOR_VALUES) : !1
+}(), $(function() {
+    var a = $("#sidebar");
+    a.on("mouseleave", function() {
+        ($(this).is(".sidebar-icons") || $(window).width() < 1049) && $(window).width() > 767 && setTimeout(function() {
+            closeNavigation()
+        }, 300)
+    }), a.on("show.bs.collapse", function(b) {
+        b.target == this && a.addClass("open")
+    }), a.on("hide.bs.collapse", function(b) {
+        b.target == this && (a.removeClass("open"), $(".content").css("margin-top", ""))
+    }), $(window).resize(function() {
+        closeNavigation()
+    }), $(document).on("pjax-app:loaded", function() {
+        $(window).width() < 768 && closeNavigation()
+    }), $(".btn-group > .btn[data-toggle-class]").click(function() {
+        var a = $(this),
+            b = a.find("input").is("[type=radio]"),
+            c = a.parent();
+        b ? (c.children(".btn[data-toggle-class]").removeClass(function() {
+            return $(this).data("toggle-class")
+        }).addClass(function() {
+            return $(this).data("toggle-passive-class")
+        }), a.removeClass($(this).data("toggle-passive-class")).addClass(a.data("toggle-class"))) : a.toggleClass($(this).data("toggle-passive-class")).toggleClass(a.data("toggle-class"))
+    }), $("#search-toggle").click(function() {
+        a.data("bs.collapse") && a.collapse("hide");
+        var b = $(".notifications"),
+            c = !b.is(":empty");
+        $("#search-form").css("height", function() {
+            var a = $(this);
+            0 == a.height() ? (a.css("height", 40), c && b.css("top", 86)) : (a.css("height", 0), c && b.css("top", ""))
+        })
+    }), a.on("show.bs.collapse", function() {
+        var a = $(".notifications"),
+            b = !a.is(":empty");
+        $("#search-form").css("height", 0), b && a.css("top", "")
+    }), $("#side-nav").find("a.accordion-toggle").on("click", function() {
+        if ($(window).width() < 768) {
+            var a = $(this),
+                b = $("#side-nav"),
+                c = b.height() + parseInt(b.css("margin-top")) + parseInt(b.css("margin-bottom")),
+                d = c + 20,
+                e = a.find("+ ul"),
+                f = e.find("> li"),
+                g = $.map(f, function(a) {
+                    return $(a).height()
+                }).reduce(function(a, b) {
+                    return a + b
+                }),
+                h = $(".content");
+            e.is(".in") ? h.css("margin-top", d - g + "px") : h.css("margin-top", d + g - a.closest("ul").find("> .panel > .panel-collapse.open").height() + "px")
+        }
+    }), a.on("show.bs.collapse", function(a) {
+        if (a.target == this && $(window).width() < 768) {
+            var b = $("#side-nav"),
+                c = b.height() + parseInt(b.css("margin-top")) + parseInt(b.css("margin-bottom")),
+                d = c + 20;
+            $(".content").css("margin-top", d + "px")
+        }
+    });
+    var b = a.find(".panel-collapse");
+    b.on("show.bs.collapse", function(a) {
+        a.target == this && $(this).addClass("open")
+    }), b.on("hide.bs.collapse", function(a) {
+        a.target == this && $(this).removeClass("open")
+    }), initAppPlugins()
+});
