@@ -192,7 +192,7 @@ class ErrorLog(models.Model):
     class Meta:
         ordering = ['-updated_at']
         verbose_name = "Auto trade error Log"
-        verbose_name_plural = "Auto trading Erro Logs"
+        verbose_name_plural = "Auto trading ERRORS Logs"
 
 
 from django.db.models.signals import post_save

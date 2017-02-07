@@ -5,7 +5,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'q9+1cli039zfw564d*=aw=8+&dfvux8(+=+45v$z&tn85&v7b@'
 
-DEBUG =True
+DEBUG =False
+
+ADMINS = (
+     ('Yogesh', 'alen@geitpl.com'),
+)
+
+MANAGERS = ADMINS
 
 ALLOWED_HOSTS = ['*']
 
@@ -177,3 +183,29 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'alengeitpl'
 EMAIL_HOST_PASSWORD = 'OMsai@ram1'
 DEFAULT_FROM_EMAIL = 'info@iqoptionexperts.com'
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}

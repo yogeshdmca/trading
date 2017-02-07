@@ -9,20 +9,20 @@ class SignalAdmin(admin.ModelAdmin):
     list_filter = (
         ('created_at', DateFieldListFilter),'status', 'currency'
     )
-    ordering = ['created_at']
+    ordering = ['-created_at']
 
 class AutoTradeHistoryAdmin(admin.ModelAdmin):
     list_display = ['profile', 'signal','updated_at','shortcode','buy_price','balance_after', 'longcode']
-    ordering = ['updated_at']
+    ordering = ['-updated_at']
 
 class AutoTradeAdmin(admin.ModelAdmin):
     list_display = ['profile', 'active','updated_at']
     list_filter = ('active',)
-    ordering = ['updated_at']
+    ordering = ['-updated_at']
 
 class AutoTradeErrorAdmin(admin.ModelAdmin):
-    list_display = ['user', 'error','log']
-    ordering = ['-id']
+    list_display = ['user', 'error','log','updated_at']
+    ordering = ['-updated_at']
 
 
 admin.site.register(Signal, SignalAdmin)
