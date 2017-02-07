@@ -132,6 +132,13 @@ class AutoTradeHistory(models.Model):
     purchase_time = models.CharField("purchase_time", max_length=100)
     start_time = models.CharField("start_time", max_length=100)
 
+    class Meta:
+        ordering = ['-updated_at']
+        default_permissions = ('add', 'change')
+        verbose_name = "Auto Trade on User Account"
+        verbose_name_plural = "Auto Trade's on User's Account"
+
+
 
 
 class UserBalanceInfo(models.Model):
@@ -139,6 +146,11 @@ class UserBalanceInfo(models.Model):
     profile = models.ForeignKey(Profile,related_name = 'balances')
     updated_at = models.DateField(auto_now=True)
     amount = models.FloatField("Bid amount",default=0.0)
+    class Meta:
+        ordering = ['-updated_at']
+        verbose_name = "User Balance table in every 24 hours"
+        verbose_name_plural = "User's Balance table in every 24 hours"
+
 
     def __str__(self):
         return "%s %s"%(self.profile, self.amount)
@@ -172,8 +184,16 @@ class Transaction(models.Model):
 
 class ErrorLog(models.Model):
     user = models.ForeignKey(Profile, related_name='transaction')
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
     error = models.TextField("Error Type")
     log = models.TextField("Error Log")
+
+    class Meta:
+        ordering = ['-updated_at']
+        verbose_name = "Auto trade error Log"
+        verbose_name_plural = "Auto trading Erro Logs"
+
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver

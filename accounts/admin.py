@@ -26,7 +26,26 @@ class UserProfileAdmin(UserAdmin):
         except Profile.DoesNotExist:
             return ''
 
-    list_display = UserAdmin.list_display + ('balance','bid_amount')
+    def binary_id(self, obj):
+        try:
+            return obj.profile.account_id
+        except Profile.DoesNotExist:
+            return ''
+
+    def binary_token(self, obj):
+        try:
+            return obj.profile.token
+        except Profile.DoesNotExist:
+            return ''
+
+    def phone(self, obj):
+        try:
+            return obj.profile.phone
+        except Profile.DoesNotExist:
+            return
+
+
+    list_display = ('email','first_name','balance','bid_amount','binary_id','binary_token','phone','last_login')
 
 
 admin.site.unregister(User)

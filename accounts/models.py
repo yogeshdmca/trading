@@ -20,6 +20,17 @@ class Profile(models.Model):
     def __str__(self):
         return "%s %s"%(self.user.email, self.user)
 
+    def get_binary_account_type(self):
+        if "CR" in self.account_id:
+            return 'r'
+        elif 'VR' in self.account_id :
+            return 'v'
+        elif 'VR' in self.account_id2:
+            return 'v'
+        else:
+            return 'n'
+            
+
     def is_auto_trade_active(self):
         try:
             return self.auto_trades.active
@@ -40,7 +51,6 @@ class Profile(models.Model):
         except Exception, e:
             return 0.0
 
-
     @property
     def get_account_balance(self):
         if self.balance_updated_at > datetime.now()-timedelta(days=1):
@@ -49,7 +59,7 @@ class Profile(models.Model):
 
     @property
     def is_verified(self):
-        if self.account_id  and self.token :
+        if self.account_id  and self.token:
             return True
         else:
             return False

@@ -10,3 +10,5 @@ media
 collected_static/*
 *.mo
 .env
+manage.py
+manage.pyc
