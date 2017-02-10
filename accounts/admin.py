@@ -44,8 +44,20 @@ class UserProfileAdmin(UserAdmin):
         except Profile.DoesNotExist:
             return
 
+    def account_status(self, obj):
+        try:
+            return obj.profile.account_status
+        except Profile.DoesNotExist:
+            return ''
 
-    list_display = ('email','first_name','balance','bid_amount','binary_id','binary_token','phone','last_login')
+    def account_error(self, obj):
+        try:
+            return obj.profile.account_error
+        except Profile.DoesNotExist:
+            return ''
+
+
+    list_display = ('email','last_login','balance','binary_id','binary_token','account_status','account_error')
 
 
 admin.site.unregister(User)

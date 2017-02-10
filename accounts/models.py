@@ -4,6 +4,22 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import datetime , timedelta
 
+ACCOUNT_STATUS_CHOICES = (
+        ('real', 'Real Acount'),
+        ('virtual', 'Virtual account'),
+        ('new', 'Account not configured'),
+    )
+
+ACCOUNT_ERROR_CHOICES = (
+        ('new', 'Need to Athenticate by binary.com for get trading working'),
+        ('expire', 'Token Expired, Please thenticate again'),
+        ('balance', 'Account having less balance, can not trade'),
+        ('deactivated', 'Your account deactivated on binary.com'),
+        ('real_account', 'Your Virtual account is Active only, need to activate real account and then authenticate again.'),
+        ('ok', 'Everything are Good, Enjoy trading with IqOptionExperts'),
+    )
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
@@ -16,10 +32,16 @@ class Profile(models.Model):
     token  = models.CharField("Broker Real token ",max_length=200,null=True, blank=True)
     account_id2 = models.CharField("Broker virtual account Id ",max_length=200,null=True, blank=True)
     token2  = models.CharField("Broker virtual tocken",max_length=200,null=True, blank=True)
+    account_status = models.CharField(max_length=10, choices=ACCOUNT_STATUS_CHOICES,default='new')
+    account_error = models.CharField(max_length=10, choices=ACCOUNT_ERROR_CHOICES,default='new')
+
 
     def __str__(self):
         return "%s %s"%(self.user.email, self.user)
 
+    def get_token(self):
+        return self.token
+        
     def get_binary_account_type(self):
         if "CR" in self.account_id:
             return 'r'
